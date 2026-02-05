@@ -29,12 +29,10 @@ def init_db():
             )
         ''')
 
-# الصفحة الرئيسية (التعريفية فقط)
 @app.route('/')
 def home():
     return render_template('object_home.html')
 
-# صفحة السوق (عرض العقارات)
 @app.route('/browse')
 def browse():
     init_db()
@@ -42,6 +40,14 @@ def browse():
     db_properties = conn.execute('SELECT * FROM properties').fetchall()
     conn.close()
     return render_template('browse.html', properties=db_properties)
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
 
 @app.route('/add', methods=('GET', 'POST'))
 def add_property():
@@ -63,14 +69,8 @@ def add_property():
                      (title, price, location, lat, lng, image_filename))
         conn.commit()
         conn.close()
-        return redirect(url_for('browse')) # التوجيه لصفحة التصفح بعد الإضافة
+        return redirect(url_for('browse'))
     return render_template('add_property.html')
-
-@app.route('/login')
-def login(): return render_template('login.html')
-
-@app.route('/signup')
-def signup(): return render_template('signup.html')
 
 if __name__ == '__main__':
     init_db()
