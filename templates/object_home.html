@@ -2,39 +2,90 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>OBJECT - الخريطة الحية</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBJECT - المستقبل العقاري</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: sans-serif; margin: 0; background: #f4f7f6; }
-        .nav { background: #1a1a1a; padding: 20px; display: flex; justify-content: space-around; align-items: center; color: white; }
-        .nav a { color: white; text-decoration: none; font-weight: bold; }
-        #map { height: 450px; width: 95%; margin: 20px auto; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .footer { background: #1a1a1a; color: white; padding: 40px; text-align: center; }
-        .btn { padding: 12px 25px; border-radius: 25px; text-decoration: none; color: white; font-weight: bold; display: inline-block; margin: 5px; }
-        .whatsapp { background: #25D366; } .snap { background: #FFFC00; color: black; }
+        body { font-family: 'Tajawal', sans-serif; margin: 0; background-color: #0a0a0a; color: white; overflow-x: hidden; scroll-behavior: smooth; }
+        
+        /* Navbar */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); position: fixed; width: 90%; z-index: 1000; top: 0; }
+        .logo { font-weight: 800; font-size: 24px; letter-spacing: 2px; color: #fff; }
+        .nav-links a { color: #ccc; text-decoration: none; margin-left: 20px; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: #27ae60; }
+        .btn-main { background: #27ae60; color: white; padding: 10px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.3s; }
+        .btn-main:hover { background: #219150; transform: scale(1.05); }
+
+        /* Hero Section */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-attachment: fixed; }
+        .hero h1 { font-size: 60px; margin-bottom: 10px; font-weight: 800; }
+        .hero p { font-size: 20px; max-width: 600px; margin-bottom: 30px; color: #ddd; line-height: 1.6; }
+        
+        /* Features */
+        .features { padding: 80px 10%; background: #111; text-align: center; }
+        .features h2 { font-size: 35px; margin-bottom: 50px; color: #27ae60; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .feature-card { background: #1a1a1a; padding: 30px; border-radius: 15px; transition: 0.3s; border: 1px solid #333; }
+        .feature-card:hover { transform: translateY(-10px); border-color: #27ae60; }
+        .feature-card i { font-size: 40px; color: #27ae60; margin-bottom: 20px; }
+
+        /* Footer */
+        footer { background: #000; padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #222; margin-top: 50px; flex-wrap: wrap; }
+        .social-contact { display: flex; align-items: center; gap: 20px; }
+        .whatsapp-link { display: flex; align-items: center; color: white; text-decoration: none; font-size: 14px; gap: 8px; transition: 0.3s; }
+        .whatsapp-link:hover { color: #25D366; }
+        .snap-text { color: #aaa; font-size: 14px; font-weight: 300; }
     </style>
 </head>
 <body>
-<div class="nav">
-    <h2>OBJECT</h2>
-    <a href="/">الرئيسية</a>
-    <a href="/add">+ أضف عقار</a>
-    <a href="/login">Login</a>
-</div>
-<div id="map"></div>
-<div class="footer">
-    <h3>تواصل معنا</h3>
-    <a href="https://wa.me/966590192582" class="btn whatsapp">واتساب</a>
-    <a href="https://www.snapchat.com/add/idmsr1" class="btn snap">سناب شات</a>
-</div>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-    var map = L.map('map').setView([24.7136, 46.6753], 11);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-    var locations = {{ map_data | safe }};
-    locations.forEach(function(l) {
-        if(l.lat && l.lng) { L.marker([l.lat, l.lng]).addTo(map).bindPopup(l.title + " - " + l.price + " ريال"); }
-    });
-</script>
+
+    <nav class="navbar">
+        <div class="logo">OBJECT</div>
+        <div class="nav-links">
+            <a href="/">الرئيسية</a>
+            <a href="/login">تسجيل دخول</a>
+            <a href="/browse" class="btn-main">تصفح العقارات</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>مستقبل العقار بين يديك</h1>
+        <p>منصة OBJECT تقدم لك تجربة فريدة لاكتشاف أرقى العقارات في الرياض بضغطة زر، مع خرائط تفاعلية وتواصل مباشر.</p>
+        <a href="/browse" class="btn-main" style="padding: 15px 40px; font-size: 18px;">اكتشف السوق الآن</a>
+    </header>
+
+    <section class="features">
+        <h2>لماذا تختار OBJECT؟</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <i class="fas fa-map-marked-alt"></i>
+                <h3>مواقع دقيقة</h3>
+                <p>شاهد موقع عقارك بدقة متناهية عبر الخرائط التفاعلية قبل الزيارة.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <h3>سرعة وتفاعلية</h3>
+                <p>واجهة مستخدم فائقة السرعة تضمن لك تجربة تصفح سلسة وممتعة.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>موثوقية وأمان</h3>
+                <p>جميع العروض موثقة ونضمن لك تجربة تواصل آمنة ومباشرة مع المالك.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div style="font-size: 14px; color: #666;">© 2026 OBJECT Real Estate</div>
+        <div class="social-contact">
+            <span class="snap-text">Snapchat: idmsr1</span>
+            <a href="https://wa.me/966590192582" class="whatsapp-link">
+                <span>+966590192582</span>
+                <i class="fab fa-whatsapp" style="font-size: 22px; color: #25D366;"></i>
+            </a>
+        </div>
+    </footer>
+
 </body>
 </html>

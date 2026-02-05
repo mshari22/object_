@@ -6,7 +6,6 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-# إعداد المسارات للصور
 UPLOAD_FOLDER = os.path.join('static', 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -16,7 +15,6 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-# دالة لإنشاء الجدول تلقائياً لحل مشكلة "no such table"
 def init_db():
     with get_db_connection() as conn:
         conn.execute('''
@@ -31,14 +29,19 @@ def init_db():
             )
         ''')
 
+# الصفحة الرئيسية (التعريفية فقط)
 @app.route('/')
 def home():
-    init_db() # التأكد من وجود الجدول
+    return render_template('object_home.html')
+
+# صفحة السوق (عرض العقارات)
+@app.route('/browse')
+def browse():
+    init_db()
     conn = get_db_connection()
     db_properties = conn.execute('SELECT * FROM properties').fetchall()
     conn.close()
-    map_list = [{'title': p['title'], 'lat': p['latitude'], 'lng': p['longitude'], 'price': p['price']} for p in db_properties]
-    return render_template('object_home.html', properties=db_properties, map_data=json.dumps(map_list))
+    return render_template('browse.html', properties=db_properties)
 
 @app.route('/add', methods=('GET', 'POST'))
 def add_property():
@@ -49,16 +52,18 @@ def add_property():
         lat = request.form['lat']
         lng = request.form['lng']
         file = request.files['image']
+        
         image_filename = None
         if file:
             image_filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], image_filename))
+
         conn = get_db_connection()
         conn.execute('INSERT INTO properties (title, price, location, latitude, longitude, image_path) VALUES (?, ?, ?, ?, ?, ?)',
                      (title, price, location, lat, lng, image_filename))
         conn.commit()
         conn.close()
-        return redirect(url_for('home'))
+        return redirect(url_for('browse')) # التوجيه لصفحة التصفح بعد الإضافة
     return render_template('add_property.html')
 
 @app.route('/login')
