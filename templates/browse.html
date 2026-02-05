@@ -1,131 +1,91 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="{{ lang }}" dir="{{ t['dir'] }}">
 <head>
     <meta charset="UTF-8">
-    <title>السوق العقاري - OBJECT</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <title>{{ t['browse'] }} | OBJECT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body { font-family: 'Tajawal', sans-serif; background-color: #f4f6f8; margin: 0; padding-top: 80px; }
         
-        /* Navbar Simple */
-        .nav { background: #000; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; width: 90%; z-index: 999; }
-        .nav a { color: white; text-decoration: none; font-weight: bold; margin-left: 15px; }
-        .nav .btn-add { background: #27ae60; padding: 8px 20px; border-radius: 20px; }
+        /* القائمة الجانبية (نفس الستايل) */
+        .menu-btn { position: fixed; top: 20px; {{ t['align'] }}: 20px; z-index: 2000; background: #000; color: white; padding: 10px 15px; border-radius: 50%; cursor: pointer; border: none; }
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 1500; top: 0; {{ t['align'] }}: 0; background: #111; overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
+        .sidebar a { padding: 15px 30px; text-decoration: none; font-size: 18px; color: #ddd; display: block; transition: 0.3s; text-align: {{ t['align'] }}; }
+        .sidebar a:hover { color: #27ae60; background: #222; }
+        .sidebar .closebtn { position: absolute; top: 10px; {{ 'left' if lang == 'ar' else 'right' }}: 20px; font-size: 36px; cursor: pointer; color: #fff; }
 
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-        h1 { text-align: center; color: #333; margin-bottom: 40px; font-weight: 800; }
-
-        /* Grid System */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+        /* العناوين والشبكة */
+        h1 { text-align: center; color: #333; margin-bottom: 30px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-body { padding: 15px; }
         
-        /* Product Card */
-        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid #eee; position: relative; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-        .card img { width: 100%; height: 220px; object-fit: cover; }
-        .card-body { padding: 20px; }
-        .card h3 { margin: 0 0 10px 0; font-size: 18px; color: #333; }
-        .price { color: #27ae60; font-weight: 800; font-size: 20px; margin-bottom: 10px; display: block; }
-        .location-text { color: #777; font-size: 14px; margin-bottom: 15px; display: flex; align-items: center; gap: 5px; }
-        
-        /* Map Button */
-        .btn-map { background: #f0f2f5; color: #333; border: none; padding: 10px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-map:hover { background: #e1e4e8; color: #000; }
-
-        /* Modal (Popup Map) */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
-        .modal-content { background: white; width: 90%; max-width: 600px; border-radius: 15px; overflow: hidden; position: relative; animation: slideUp 0.3s ease; }
-        #map { height: 400px; width: 100%; }
-        .close-btn { position: absolute; top: 10px; right: 10px; background: white; border: none; font-size: 20px; cursor: pointer; z-index: 9999; width: 30px; height: 30px; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        /* Footer Small */
-        .footer-mini { text-align: center; padding: 40px; margin-top: 50px; border-top: 1px solid #ddd; display: flex; justify-content: center; gap: 30px; align-items: center; color: #555; }
-        .wa-link { display: flex; align-items: center; gap: 5px; color: #555; text-decoration: none; font-weight: bold; }
+        /* زر الخريطة */
+        .btn-map { background: #f0f2f5; width: 100%; padding: 10px; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; justify-content: center; align-items: center; }
+        .modal-content { background: white; width: 90%; max-width: 600px; border-radius: 10px; position: relative; height: 400px; }
+        #map { width: 100%; height: 100%; border-radius: 10px; }
+        .close-map { position: absolute; top: 10px; right: 10px; background: white; padding: 5px 10px; cursor: pointer; z-index: 4000; border-radius: 5px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="nav">
-        <a href="/" style="font-size: 20px;">OBJECT</a>
-        <div>
-            <a href="/">الرئيسية</a>
-            <a href="/add" class="btn-add">+ إضافة عقار</a>
-        </div>
+    <button class="menu-btn" onclick="openNav()"><i class="fas fa-bars"></i></button>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <h2 style="color:#27ae60; text-align:center;">OBJECT</h2>
+        <a href="/"><i class="fas fa-home"></i> {{ t['home'] }}</a>
+        <a href="/browse"><i class="fas fa-building"></i> {{ t['browse'] }}</a>
+        <a href="/add"><i class="fas fa-plus"></i> {{ t['add'] }}</a>
+        <a href="{{ url_for('set_language', lang='en' if lang == 'ar' else 'ar') }}" style="color:#27ae60;">
+            <i class="fas fa-globe"></i> {{ t['lang_switch'] }}
+        </a>
     </div>
 
     <div class="container">
-        <h1>أحدث العقارات المميزة</h1>
+        <h1>{{ t['browse'] }}</h1>
         <div class="grid">
             {% for p in properties %}
             <div class="card">
                 <img src="{{ url_for('static', filename='uploads/' + p['image_path']) if p['image_path'] else 'https://via.placeholder.com/400' }}">
                 <div class="card-body">
-                    <span class="price">{{ p['price'] }} ريال</span>
                     <h3>{{ p['title'] }}</h3>
-                    <div class="location-text">
-                        <i class="fas fa-map-marker-alt"></i> {{ p['location'] }}
-                    </div>
-                    <button class="btn-map" onclick="openMap({{ p['latitude'] }}, {{ p['longitude'] }})">
-                        <i class="far fa-map"></i> عرض الموقع على الخريطة
-                    </button>
+                    <p style="color:#27ae60; font-weight:bold;">{{ p['price'] }} ريال</p>
+                    <button class="btn-map" onclick="openMap({{ p['latitude'] }}, {{ p['longitude'] }})">📍 {{ t['feat1'] }}</button>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
 
-    <div class="footer-mini">
-        <span>Snapchat: idmsr1</span>
-        <a href="https://wa.me/966590192582" class="wa-link">
-            <span>+966590192582</span>
-            <i class="fab fa-whatsapp" style="color: #25D366; font-size: 20px;"></i>
-        </a>
-    </div>
-
     <div id="mapModal" class="modal">
         <div class="modal-content">
-            <button class="close-btn" onclick="closeMap()">×</button>
+            <span class="close-map" onclick="closeMap()">X</span>
             <div id="map"></div>
         </div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        var map;
-        var marker;
-
-        function openMap(lat, lng) {
-            if(!lat || !lng) { alert('الموقع غير محدد لهذا العقار'); return; }
-            
-            document.getElementById('mapModal').style.display = 'flex';
-            
-            if (!map) {
-                map = L.map('map');
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-            }
-            
-            map.setView([lat, lng], 14);
-            
-            if (marker) map.removeLayer(marker);
-            marker = L.marker([lat, lng]).addTo(map);
-            
-            // إصلاح مشكلة عدم ظهور الخريطة بشكل كامل عند الفتح
-            setTimeout(function(){ map.invalidateSize(); }, 200);
-        }
-
-        function closeMap() {
-            document.getElementById('mapModal').style.display = 'none';
-        }
+        function openNav() { document.getElementById("mySidebar").style.width = "300px"; }
+        function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
         
-        // إغلاق النافذة عند الضغط في الخارج
-        window.onclick = function(event) {
-            if (event.target == document.getElementById('mapModal')) {
-                closeMap();
-            }
+        var map, marker;
+        function openMap(lat, lng) {
+            document.getElementById('mapModal').style.display = 'flex';
+            if(!map) { map = L.map('map'); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map); }
+            map.setView([lat, lng], 14);
+            if(marker) map.removeLayer(marker);
+            marker = L.marker([lat, lng]).addTo(map);
+            setTimeout(() => { map.invalidateSize(); }, 200);
         }
+        function closeMap() { document.getElementById('mapModal').style.display = 'none'; }
     </script>
+
 </body>
 </html>
