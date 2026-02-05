@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login OBJECT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #111; color: white; height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Segoe UI', sans-serif; }
+        .auth-card { background: #1a1a1a; padding: 40px; border: 1px solid #333; width: 100%; max-width: 400px; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
+        .brand-title { text-align: center; font-size: 2rem; margin-bottom: 30px; }
+        .form-control { background: #222; border: 1px solid #444; color: white; padding: 12px; margin-bottom: 15px; border-radius: 0;}
+        .form-control:focus { background: #222; color: white; border-color: #d4af37; box-shadow: none; }
+        .btn-gold { background: #d4af37; color: #000; width: 100%; padding: 12px; font-weight: bold; border: none; border-radius: 0; }
+        .link-text { color: #888; text-align: center; margin-top: 20px; display: block; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="auth-card">
+    <h2 class="brand-title">OBJECT<span style="color:#d4af37">.</span></h2>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form action="/login" method="POST">
+        <label>Email Address</label>
+        <input type="email" name="email" class="form-control" required>
+        
+        <label>Password</label>
+        <input type="password" name="password" class="form-control" required>
+        
+        <button type="submit" class="btn btn-gold">ACCESS ACCOUNT</button>
+    </form>
+    
+    <a href="/signup" class="link-text">New here? Create Account</a>
+    <a href="/" class="link-text">Back to Home</a>
+</div>
+
+</body>
+</html>
