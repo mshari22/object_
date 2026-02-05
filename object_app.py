@@ -1,10 +1,10 @@
 import os
 import sqlite3
 import json
-from flask import Flask, render_template, request, redirect, url_for
-from werkzeug.utils import secure_filename
+from flask import Flask, render_template, request, redirect, url_for, flash
 
 app = Flask(__name__)
+app.secret_key = 'supersecretkey' # ضروري لعمل التنبيهات
 
 UPLOAD_FOLDER = os.path.join('static', 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -41,36 +41,24 @@ def browse():
     conn.close()
     return render_template('browse.html', properties=db_properties)
 
-@app.route('/login')
+# تحديث صفحة الدخول لتعمل فعلياً
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        # هنا نأخذ البيانات من الفورم
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        # مؤقتاً: أي دخول سينقلك لصفحة العقارات
+        # يمكنك لاحقاً التحقق من قاعدة البيانات
+        if username and password:
+            return redirect(url_for('browse'))
+            
     return render_template('login.html')
 
 @app.route('/signup')
 def signup():
     return render_template('signup.html')
-
-@app.route('/add', methods=('GET', 'POST'))
-def add_property():
-    if request.method == 'POST':
-        title = request.form['title']
-        price = request.form['price']
-        location = request.form['location']
-        lat = request.form['lat']
-        lng = request.form['lng']
-        file = request.files['image']
-        
-        image_filename = None
-        if file:
-            image_filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], image_filename))
-
-        conn = get_db_connection()
-        conn.execute('INSERT INTO properties (title, price, location, latitude, longitude, image_path) VALUES (?, ?, ?, ?, ?, ?)',
-                     (title, price, location, lat, lng, image_filename))
-        conn.commit()
-        conn.close()
-        return redirect(url_for('browse'))
-    return render_template('add_property.html')
 
 if __name__ == '__main__':
     init_db()
