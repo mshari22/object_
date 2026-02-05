@@ -1,45 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Login OBJECT</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Login - OBJECT</title>
     <style>
-        body { background: #111; color: white; height: 100vh; display: flex; align-items: center; justify-content: center; font-family: 'Segoe UI', sans-serif; }
-        .auth-card { background: #1a1a1a; padding: 40px; border: 1px solid #333; width: 100%; max-width: 400px; box-shadow: 0 0 50px rgba(0,0,0,0.5); }
-        .brand-title { text-align: center; font-size: 2rem; margin-bottom: 30px; }
-        .form-control { background: #222; border: 1px solid #444; color: white; padding: 12px; margin-bottom: 15px; border-radius: 0;}
-        .form-control:focus { background: #222; color: white; border-color: #d4af37; box-shadow: none; }
-        .btn-gold { background: #d4af37; color: #000; width: 100%; padding: 12px; font-weight: bold; border: none; border-radius: 0; }
-        .link-text { color: #888; text-align: center; margin-top: 20px; display: block; text-decoration: none; }
+        body { font-family: 'Cairo', sans-serif; background: #1a1a1a; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-card { background: white; padding: 40px; border-radius: 20px; width: 350px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        input { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #eee; border-radius: 10px; box-sizing: border-box; background: #f9f9f9; }
+        .login-btn { width: 100%; padding: 15px; background: #1a1a1a; color: white; border: none; border-radius: 10px; font-size: 18px; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
 <body>
-
-<div class="auth-card">
-    <h2 class="brand-title">OBJECT<span style="color:#d4af37">.</span></h2>
-    
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
-    <form action="/login" method="POST">
-        <label>Email Address</label>
-        <input type="email" name="email" class="form-control" required>
-        
-        <label>Password</label>
-        <input type="password" name="password" class="form-control" required>
-        
-        <button type="submit" class="btn btn-gold">ACCESS ACCOUNT</button>
-    </form>
-    
-    <a href="/signup" class="link-text">New here? Create Account</a>
-    <a href="/" class="link-text">Back to Home</a>
-</div>
-
+    <div class="login-card">
+        <h1 style="margin-bottom: 30px;">OBJECT</h1>
+        <input type="text" placeholder="اسم المستخدم">
+        <input type="password" placeholder="كلمة المرور">
+        <button class="login-btn">Login</button>
+        <p style="margin-top: 20px; font-size: 14px;">ليس لديك حساب؟ <a href="/signup">سجل الآن</a></p>
+    </div>
 </body>
 </html>

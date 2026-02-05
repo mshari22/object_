@@ -1,28 +1,85 @@
+import os
+import sqlite3
+import json
 from flask import Flask, render_template, request, redirect, url_for
-import sqlite3 # استبدلنا pyodbc بـ sqlite3 للعمل على السيرفر العام
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-# إنشاء قاعدة البيانات تلقائياً إذا لم تكن موجودة
-def init_db():
+# إعدادات المجلدات
+UPLOAD_FOLDER = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+# الاتصال بقاعدة البيانات
+def get_db_connection():
     conn = sqlite3.connect('object_database.db')
-    cursor = conn.cursor()
-    # إنشاء جدول العقارات كمثال
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS properties (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL,
-            price REAL NOT NULL
-        )
-    ''')
-    conn.commit()
-    conn.close()
+    conn.row_factory = sqlite3.Row
+    return conn
+
+# إنشاء الجداول عند التشغيل
+def init_db():
+    with get_db_connection() as conn:
+        conn.execute('''
+            CREATE TABLE IF NOT EXISTS properties (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT NOT NULL,
+                price REAL NOT NULL,
+                location TEXT,
+                latitude REAL,
+                longitude REAL,
+                image_path TEXT
+            )
+        ''')
 
 @app.route('/')
 def home():
-    return render_template('object_home.html')
+    conn = get_db_connection()
+    db_properties = conn.execute('SELECT * FROM properties').fetchall()
+    conn.close()
+    
+    # تحويل بيانات العقارات لتفهمها الخريطة
+    map_list = []
+    for p in db_properties:
+        map_list.append({
+            'title': p['title'],
+            'lat': p['latitude'],
+            'lng': p['longitude'],
+            'price': p['price']
+        })
+    
+    return render_template('object_home.html', properties=db_properties, map_data=json.dumps(map_list))
 
-# أضف بقية الـ routes الخاصة بك هنا بنفس الطريقة
+@app.route('/add', methods=('GET', 'POST'))
+def add_property():
+    if request.method == 'POST':
+        title = request.form['title']
+        price = request.form['price']
+        location = request.form['location']
+        lat = request.form['lat']
+        lng = request.form['lng']
+        
+        file = request.files['image']
+        image_filename = None
+        if file:
+            image_filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], image_filename))
+
+        conn = get_db_connection()
+        conn.execute('INSERT INTO properties (title, price, location, latitude, longitude, image_path) VALUES (?, ?, ?, ?, ?, ?)',
+                     (title, price, location, lat, lng, image_filename))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('home'))
+    return render_template('add_property.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
 
 if __name__ == '__main__':
     init_db()

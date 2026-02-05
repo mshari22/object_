@@ -1,120 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OBJECT | Real Estate</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <title>OBJECT - العقاري</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #1a1a1a; --accent: #d4af37; --light-bg: #f9f9f9; }
-        body { font-family: 'Outfit', sans-serif; color: var(--primary); background: #fff; }
-        .navbar { padding: 20px 0; transition: all 0.4s; background: transparent; }
-        .navbar.scrolled { background: rgba(255, 255, 255, 0.98); padding: 10px 0; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-        .hero { height: 80vh; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070') center/cover; display: flex; align-items: center; color: white; }
-        .property-card { border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: 0.3s; margin-bottom: 30px; }
-        .property-card:hover { transform: translateY(-10px); }
-        .card-img-wrapper { height: 250px; overflow: hidden; position: relative; }
-        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-        .price-tag { position: absolute; top: 15px; right: 15px; background: white; padding: 5px 15px; font-weight: bold; color: var(--primary); }
-        .btn-custom { padding: 12px 30px; border-radius: 0; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
+        body { font-family: 'Cairo', sans-serif; margin: 0; background: #f4f7f6; color: #333; }
+        .navbar { background: #1a1a1a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        .navbar a { color: white; text-decoration: none; font-weight: bold; margin: 0 10px; }
+        .hero { text-align: center; padding: 40px 20px; background: white; }
+        #map { height: 450px; width: 90%; margin: 20px auto; border-radius: 15px; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .container { width: 90%; margin: auto; padding-bottom: 50px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.05); transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-content { padding: 15px; }
+        .price { color: #27ae60; font-size: 20px; font-weight: bold; }
+        
+        .footer { background: #1a1a1a; color: white; padding: 50px 5%; text-align: center; }
+        .social-btns { margin: 20px 0; }
+        .btn { padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: bold; display: inline-block; margin: 5px; }
+        .whatsapp { background: #25D366; color: white; }
+        .snapchat { background: #FFFC00; color: black; }
+        .add-btn { background: #007bff; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light">
-        <div class="container">
-            <a class="navbar-brand fw-bold fs-3" href="/">OBJECT<span style="color:var(--accent)">.</span></a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                </ul>
-                
-                {% if user_name %}
-                    <div class="dropdown ms-lg-4">
-                        <button class="btn btn-dark dropdown-toggle btn-custom" type="button" data-bs-toggle="dropdown">
-                            <i class="fas fa-user-circle me-2"></i>{{ user_name }}
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                            <li><a class="dropdown-item py-2" href="/add_property"><i class="fas fa-plus me-2 text-success"></i>Add Property</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item py-2 text-danger" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                        </ul>
-                    </div>
-                {% else %}
-                    <div class="ms-lg-4">
-                        <a href="/login" class="btn btn-outline-dark btn-custom me-2">Login</a>
-                        <a href="/signup" class="btn btn-dark btn-custom">Sign Up</a>
-                    </div>
-                {% endif %}
+<div class="navbar">
+    <div style="color: white; font-size: 24px; font-weight: bold;">OBJECT</div>
+    <div>
+        <a href="/">الرئيسية</a>
+        <a href="/login">Login</a>
+        <a href="/add" class="add-btn">+ أضف عقار</a>
+    </div>
+</div>
+
+<div class="hero">
+    <h1>استكشف عقارات الرياض على الخريطة</h1>
+    <p>تصفح العقارات المتاحة الآن في أفضل أحياء العاصمة</p>
+</div>
+
+<div id="map"></div>
+
+<div class="container">
+    <div class="grid">
+        {% for p in properties %}
+        <div class="card">
+            <img src="{{ url_for('static', filename='uploads/' + p['image_path']) if p['image_path'] else 'https://via.placeholder.com/400x200' }}">
+            <div class="card-content">
+                <h3>{{ p['title'] }}</h3>
+                <p class="price">{{ p['price'] }} ريال</p>
+                <p>📍 {{ p['location'] }}</p>
             </div>
         </div>
-    </nav>
+        {% endfor %}
+    </div>
+</div>
 
-    <header class="hero">
-        <div class="container text-center">
-            <h1 class="display-2 fw-bold" data-aos="fade-up">OBJECT Real Estate</h1>
-            <p class="lead" data-aos="fade-up" data-aos-delay="200">Discover properties added by our community.</p>
-        </div>
-    </header>
+<div class="footer">
+    <h2>تواصل معنا الآن</h2>
+    <div class="social-btns">
+        <a href="https://wa.me/966590192582" class="btn whatsapp">واتساب: 966590192582+</a>
+        <a href="https://www.snapchat.com/add/idmsr1" class="btn snapchat">سناب شات: idmsr1</a>
+    </div>
+    <hr style="opacity: 0.1; margin: 30px 0;">
+    <p>© 2026 OBJECT العقارية | الرياض، المملكة العربية السعودية</p>
+</div>
 
-    <section class="py-5" id="listings">
-        <div class="container">
-            <div class="d-flex justify-content-between align-items-center mb-5">
-                <h2 class="fw-bold">Latest Listings</h2>
-                {% if user_name %}
-                <a href="/add_property" class="btn btn-success btn-custom"><i class="fas fa-plus me-2"></i>Add Your Property</a>
-                {% endif %}
-            </div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map').setView([24.7136, 46.6753], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-            <div class="row">
-                {% if properties %}
-                    {% for prop in properties %}
-                    <div class="col-md-4" data-aos="zoom-in">
-                        <div class="card property-card">
-                            <div class="card-img-wrapper">
-                                <span class="price-tag">${{ "{:,.2f}".format(prop.Price) }}</span>
-                                <img src="{{ prop.ImageURL if prop.ImageURL else 'https://via.placeholder.com/400x300?text=No+Image' }}" alt="Property">
-                            </div>
-                            <div class="card-body">
-                                <h4 class="fw-bold">{{ prop.Title }}</h4>
-                                <p class="text-muted"><i class="fas fa-map-marker-alt me-2"></i>{{ prop.Location }}</p>
-                                <hr>
-                                <div class="d-flex justify-content-between text-muted small">
-                                    <span><i class="fas fa-bed me-1"></i> {{ prop.Beds }} Beds</span>
-                                    <span><i class="fas fa-bath me-1"></i> {{ prop.Baths }} Baths</span>
-                                    <span><i class="fas fa-vector-square me-1"></i> {{ prop.Area }} m²</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="col-12 text-center py-5">
-                        <i class="fas fa-home fa-3x text-light mb-3"></i>
-                        <p class="text-muted">No properties listed yet. Be the first to add one!</p>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-dark text-white py-4 mt-5">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2026 OBJECT Perspective. Created for the Community.</p>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-        window.onscroll = function() {
-            if (window.scrollY > 50) document.querySelector('.navbar').classList.add('scrolled');
-            else document.querySelector('.navbar').classList.remove('scrolled');
-        };
-    </script>
+    var markers = {{ map_data | safe }};
+    markers.forEach(function(m) {
+        if(m.lat && m.lng) {
+            L.marker([m.lat, m.lng]).addTo(map)
+             .bindPopup("<b>" + m.title + "</b><br>" + m.price + " ريال");
+        }
+    });
+</script>
 </body>
 </html>
