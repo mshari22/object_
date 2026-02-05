@@ -6,18 +6,17 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-# إعدادات المجلدات
-UPLOAD_FOLDER = 'static/uploads'
+# إعداد المسارات للصور
+UPLOAD_FOLDER = os.path.join('static', 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# الاتصال بقاعدة البيانات
 def get_db_connection():
     conn = sqlite3.connect('object_database.db')
     conn.row_factory = sqlite3.Row
     return conn
 
-# إنشاء الجداول عند التشغيل
+# دالة لإنشاء الجدول تلقائياً لحل مشكلة "no such table"
 def init_db():
     with get_db_connection() as conn:
         conn.execute('''
@@ -34,20 +33,11 @@ def init_db():
 
 @app.route('/')
 def home():
+    init_db() # التأكد من وجود الجدول
     conn = get_db_connection()
     db_properties = conn.execute('SELECT * FROM properties').fetchall()
     conn.close()
-    
-    # تحويل بيانات العقارات لتفهمها الخريطة
-    map_list = []
-    for p in db_properties:
-        map_list.append({
-            'title': p['title'],
-            'lat': p['latitude'],
-            'lng': p['longitude'],
-            'price': p['price']
-        })
-    
+    map_list = [{'title': p['title'], 'lat': p['latitude'], 'lng': p['longitude'], 'price': p['price']} for p in db_properties]
     return render_template('object_home.html', properties=db_properties, map_data=json.dumps(map_list))
 
 @app.route('/add', methods=('GET', 'POST'))
@@ -58,13 +48,11 @@ def add_property():
         location = request.form['location']
         lat = request.form['lat']
         lng = request.form['lng']
-        
         file = request.files['image']
         image_filename = None
         if file:
             image_filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], image_filename))
-
         conn = get_db_connection()
         conn.execute('INSERT INTO properties (title, price, location, latitude, longitude, image_path) VALUES (?, ?, ?, ?, ?, ?)',
                      (title, price, location, lat, lng, image_filename))
@@ -74,12 +62,10 @@ def add_property():
     return render_template('add_property.html')
 
 @app.route('/login')
-def login():
-    return render_template('login.html')
+def login(): return render_template('login.html')
 
 @app.route('/signup')
-def signup():
-    return render_template('signup.html')
+def signup(): return render_template('signup.html')
 
 if __name__ == '__main__':
     init_db()
