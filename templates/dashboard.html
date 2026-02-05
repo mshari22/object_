@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1 style="margin-bottom: 30px;">لوحة التحكم</h1>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+        <div style="background: white; padding: 30px; border-radius: 15px;">
+            <h2><i class="fas fa-plus-circle"></i> إضافة عقار جديد</h2>
+            <form method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 15px;">
+                <input type="text" name="title" placeholder="عنوان الإعلان" required class="inp">
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" name="price" placeholder="السعر" required class="inp">
+                    <input type="text" name="district" placeholder="الحي" required class="inp">
+                </div>
+                <select name="type" class="inp">
+                    <option value="فيلا">فيلا</option>
+                    <option value="شقة">شقة</option>
+                    <option value="أرض">أرض</option>
+                </select>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" name="area" placeholder="المساحة (م²)" required class="inp">
+                    <input type="number" name="rooms" placeholder="الغرف" class="inp">
+                    <input type="number" name="bathrooms" placeholder="الحمامات" class="inp">
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" name="age" placeholder="عمر العقار (سنة)" class="inp">
+                    <input type="number" step="any" name="lat" placeholder="Latitude" required class="inp">
+                    <input type="number" step="any" name="lng" placeholder="Longitude" required class="inp">
+                </div>
+                <textarea name="description" placeholder="وصف العقار والمميزات..." rows="4" class="inp"></textarea>
+                <input type="text" name="location" placeholder="وصف الموقع (نصي)" class="inp">
+                <label>صور العقار:</label>
+                <input type="file" name="image" required>
+                <button type="submit" class="btn">نشر العقار</button>
+            </form>
+        </div>
+
+        <div style="background: white; padding: 30px; border-radius: 15px;">
+            <h2><i class="fas fa-bullhorn"></i> طلبات الباحثين عن عقار</h2>
+            {% for r in requests %}
+            <div style="border-bottom: 1px solid #eee; padding: 15px 0;">
+                <div style="font-weight: bold;">مطلوب: {{ r['type'] }} في {{ r['district'] }}</div>
+                <div style="color: #27ae60;">الميزانية: {{ r['budget_min'] }} - {{ r['budget_max'] }} ريال</div>
+                <div style="color: #777; font-size: 14px;">"{{ r['notes'] }}"</div>
+                <div style="margin-top: 5px;">
+                    <a href="tel:{{ r['phone'] }}" class="btn" style="padding: 5px 10px; font-size: 12px;">اتصل بالعميل: {{ r['user_name'] }}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .inp { padding: 10px; border: 1px solid #ddd; border-radius: 8px; width: 100%; box-sizing: border-box; }
+</style>
+{% endblock %}

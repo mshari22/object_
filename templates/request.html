@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="max-width: 600px;">
+    <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;">
+        <h1 style="color: #27ae60;">ما لقيت اللي في بالك؟</h1>
+        <p>املأ النموذج، وسنقوم بإرسال طلبك لكل المكاتب العقارية في الرياض فوراً.</p>
+        
+        <form method="POST" style="text-align: right; display: flex; flex-direction: column; gap: 15px; margin-top: 30px;">
+            <input type="text" name="name" placeholder="الاسم الكريم" required style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
+            <input type="tel" name="phone" placeholder="رقم الجوال" required style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
+            <div style="display: flex; gap: 10px;">
+                <input type="number" name="min" placeholder="أقل سعر" style="flex:1; padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
+                <input type="number" name="max" placeholder="أقصى سعر" style="flex:1; padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
+            </div>
+            <input type="text" name="district" placeholder="الحي المفضل" required style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
+            <select name="type" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
+                <option value="فيلا">فيلا</option>
+                <option value="شقة">شقة</option>
+                <option value="أرض">أرض</option>
+            </select>
+            <textarea name="notes" placeholder="ملاحظات إضافية (مثلاً: واجهة شمالية، قرب مسجد...)" rows="3" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;"></textarea>
+            <button type="submit" class="btn" style="padding: 15px; font-size: 18px;">إرسال الطلب للمكاتب</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

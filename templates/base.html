@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" dir="{{ t['dir'] }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t['title'] }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        :root { --primary: #27ae60; --dark: #0a0a0a; --glass: rgba(20, 20, 20, 0.9); }
+        body { font-family: 'Tajawal', sans-serif; margin: 0; background: #f4f6f8; color: #333; padding-top: 70px; }
+        /* Navbar */
+        .navbar { position: fixed; top: 0; width: 100%; background: var(--glass); backdrop-filter: blur(15px); z-index: 1000; padding: 15px 0; border-bottom: 1px solid #333; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; width: 90%; margin: 0 auto; }
+        .logo { color: white; font-weight: 800; font-size: 24px; text-decoration: none; }
+        .menu-links a { color: #ddd; text-decoration: none; margin: 0 15px; font-weight: 500; transition: 0.3s; }
+        .menu-links a:hover { color: var(--primary); }
+        .lang-btn { background: none; border: 1px solid var(--primary); color: var(--primary); padding: 5px 15px; border-radius: 20px; text-decoration: none; font-size: 14px; }
+        
+        /* General Styles */
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .btn { background: var(--primary); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; display: inline-block; }
+        .btn:hover { background: #219150; }
+        
+        /* Footer */
+        footer { background: var(--dark); color: #777; padding: 40px 0; text-align: center; margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">OBJECT</a>
+            <div class="menu-links">
+                <a href="/">{{ t['home'] }}</a>
+                <a href="/browse">{{ t['browse'] }}</a>
+                <a href="/request">{{ t['request'] }}</a>
+                <a href="/dashboard">{{ t['dashboard'] }}</a>
+                <a href="{{ url_for('set_lang', lang='en' if lang=='ar' else 'ar') }}" class="lang-btn">{{ 'English' if lang=='ar' else 'عربي' }}</a>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        <p>&copy; 2026 OBJECT Real Estate</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
