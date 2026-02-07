@@ -1,37 +1,93 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <div style="background: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
-        <form action="/browse" method="GET" style="display: flex; gap: 15px; flex-wrap: wrap;">
-            <input type="text" name="district" placeholder="ابحث باسم الحي (مثال: الملقا)" style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; flex: 2;">
-            <select name="type" style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; flex: 1;">
-                <option value="">نوع العقار</option>
-                <option value="فيلا">فيلا</option>
-                <option value="شقة">شقة</option>
-                <option value="أرض">أرض</option>
-            </select>
-            <input type="number" name="price_max" placeholder="الحد الأقصى للسعر" style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; flex: 1;">
-            <button type="submit" class="btn" style="flex: 0.5;">بحث</button>
+    <!-- Page Header -->
+    <div style="text-align: center; margin-bottom: 50px;" class="animate-in">
+        <h1 class="section-title">سوق العقارات</h1>
+        <p class="section-subtitle">اكتشف أفضل العقارات المتاحة في الرياض</p>
+    </div>
+
+    <!-- Search Filter -->
+    <div class="glass-card animate-in" style="margin-bottom: 50px; animation-delay: 0.1s;">
+        <form action="/browse" method="GET" style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
+            <div style="flex: 2; min-width: 200px;">
+                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
+                    <i class="fas fa-map-marker-alt"></i> الحي
+                </label>
+                <input type="text" name="district" placeholder="ابحث باسم الحي (مثال: الملقا)" class="inp">
+            </div>
+            <div style="flex: 1; min-width: 150px;">
+                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
+                    <i class="fas fa-home"></i> نوع العقار
+                </label>
+                <select name="type" class="inp">
+                    <option value="">جميع الأنواع</option>
+                    <option value="فيلا">فيلا</option>
+                    <option value="شقة">شقة</option>
+                    <option value="أرض">أرض</option>
+                </select>
+            </div>
+            <div style="flex: 1; min-width: 150px;">
+                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
+                    <i class="fas fa-coins"></i> الحد الأقصى للسعر
+                </label>
+                <input type="number" name="price_max" placeholder="مثال: 2000000" class="inp">
+            </div>
+            <button type="submit" class="btn" style="min-width: 120px; justify-content: center;">
+                <i class="fas fa-search"></i>
+                بحث
+            </button>
         </form>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;">
+    <!-- Properties Grid -->
+    <div class="property-grid">
         {% for p in properties %}
-        <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;">
-            <a href="/property/{{ p['id'] }}" style="text-decoration: none; color: inherit;">
-                <img src="{{ url_for('static', filename='uploads/' + p['image_path']) }}" style="width: 100%; height: 200px; object-fit: cover;">
-                <div style="padding: 20px;">
-                    <h3 style="margin: 0 0 10px 0;">{{ p['title'] }}</h3>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="color: #27ae60; font-weight: bold; font-size: 18px;">{{ "{:,.0f}".format(p['price']) }} ريال</span>
-                        <span style="font-size: 14px; color: #777;">{{ p['district'] }}</span>
+        <div class="property-card animate-in" style="animation-delay: {{ loop.index * 0.1 }}s;">
+            <a href="/property/{{ p['id'] }}">
+                <div class="property-image-container">
+                    {% if p['image_path'] %}
+                    <img src="{{ url_for('static', filename='uploads/' + p['image_path']) }}" alt="{{ p['title'] }}"
+                        class="property-image">
+                    {% else %}
+                    <div class="property-image"
+                        style="background: var(--gradient-2); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-home" style="font-size: 48px; color: var(--primary);"></i>
                     </div>
-                    <div style="margin-top: 15px; font-size: 14px; color: #555; display: flex; gap: 10px;">
-                        <span><i class="fas fa-bed"></i> {{ p['rooms'] }}</span> | 
-                        <span><i class="fas fa-ruler"></i> {{ p['area'] }} م²</span>
+                    {% endif %}
+                    <div style="position: absolute; top: 15px; right: 15px; z-index: 2;">
+                        <span class="badge">{{ p['type'] }}</span>
+                    </div>
+                </div>
+                <div class="property-content">
+                    <h3 class="property-title">{{ p['title'] }}</h3>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                        <span class="property-price">{{ "{:,.0f}".format(p['price']) }} ريال</span>
+                    </div>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        {{ p['district'] }}
+                    </div>
+                    <div class="property-features">
+                        <span class="property-feature">
+                            <i class="fas fa-bed"></i> {{ p['rooms'] }} غرف
+                        </span>
+                        <span class="property-feature">
+                            <i class="fas fa-ruler-combined"></i> {{ p['area'] }} م²
+                        </span>
+                        <span class="property-feature">
+                            <i class="fas fa-eye"></i> {{ p['views'] }}
+                        </span>
                     </div>
                 </div>
             </a>
+        </div>
+        {% else %}
+        <div class="glass-card" style="grid-column: 1 / -1; text-align: center; padding: 60px;">
+            <i class="fas fa-search" style="font-size: 48px; color: var(--text-muted); margin-bottom: 20px;"></i>
+            <h3 style="color: var(--text-secondary); margin-bottom: 10px;">لا توجد عقارات حالياً</h3>
+            <p style="color: var(--text-muted);">جرب تعديل معايير البحث أو تصفح جميع العقارات</p>
         </div>
         {% endfor %}
     </div>

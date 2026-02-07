@@ -1,26 +1,98 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container" style="max-width: 600px;">
-    <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;">
-        <h1 style="color: #27ae60;">ما لقيت اللي في بالك؟</h1>
-        <p>املأ النموذج، وسنقوم بإرسال طلبك لكل المكاتب العقارية في الرياض فوراً.</p>
-        
-        <form method="POST" style="text-align: right; display: flex; flex-direction: column; gap: 15px; margin-top: 30px;">
-            <input type="text" name="name" placeholder="الاسم الكريم" required style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
-            <input type="tel" name="phone" placeholder="رقم الجوال" required style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
-            <div style="display: flex; gap: 10px;">
-                <input type="number" name="min" placeholder="أقل سعر" style="flex:1; padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
-                <input type="number" name="max" placeholder="أقصى سعر" style="flex:1; padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
+<div class="container" style="max-width: 650px;">
+    <div class="glass-card animate-in" style="text-align: center; padding: 50px 40px;">
+        <!-- Header -->
+        <div
+            style="width: 80px; height: 80px; background: var(--gradient-1); border-radius: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; box-shadow: 0 10px 40px rgba(0, 212, 170, 0.3);">
+            <i class="fas fa-paper-plane" style="font-size: 32px; color: white;"></i>
+        </div>
+
+        <h1 class="section-title" style="margin-bottom: 15px;">ما لقيت اللي في بالك؟</h1>
+        <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 40px; line-height: 1.8;">
+            املأ النموذج، وسنقوم بإرسال طلبك لكل المكاتب العقارية في الرياض فوراً.
+        </p>
+
+        <!-- Form -->
+        <form method="POST" style="text-align: right; display: flex; flex-direction: column; gap: 20px;">
+            <div>
+                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
+                    <i class="fas fa-user"></i> الاسم الكريم
+                </label>
+                <input type="text" name="name" placeholder="أدخل اسمك" required class="inp">
             </div>
-            <input type="text" name="district" placeholder="الحي المفضل" required style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
-            <select name="type" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
-                <option value="فيلا">فيلا</option>
-                <option value="شقة">شقة</option>
-                <option value="أرض">أرض</option>
-            </select>
-            <textarea name="notes" placeholder="ملاحظات إضافية (مثلاً: واجهة شمالية، قرب مسجد...)" rows="3" style="padding: 12px; border-radius: 8px; border: 1px solid #ddd;"></textarea>
-            <button type="submit" class="btn" style="padding: 15px; font-size: 18px;">إرسال الطلب للمكاتب</button>
+
+            <div>
+                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
+                    <i class="fas fa-phone"></i> رقم الجوال
+                </label>
+                <input type="tel" name="phone" placeholder="05XXXXXXXX" required class="inp">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div>
+                    <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
+                        <i class="fas fa-coins"></i> أقل سعر
+                    </label>
+                    <input type="number" name="min" placeholder="500000" class="inp">
+                </div>
+                <div>
+                    <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
+                        <i class="fas fa-coins"></i> أقصى سعر
+                    </label>
+                    <input type="number" name="max" placeholder="2000000" class="inp">
+                </div>
+            </div>
+
+            <div>
+                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
+                    <i class="fas fa-map-marker-alt"></i> الحي المفضل
+                </label>
+                <input type="text" name="district" placeholder="مثال: الملقا، النرجس، الياسمين" required class="inp">
+            </div>
+
+            <div>
+                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
+                    <i class="fas fa-home"></i> نوع العقار
+                </label>
+                <select name="type" class="inp">
+                    <option value="فيلا">فيلا</option>
+                    <option value="شقة">شقة</option>
+                    <option value="أرض">أرض</option>
+                </select>
+            </div>
+
+            <div>
+                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
+                    <i class="fas fa-comment-alt"></i> ملاحظات إضافية
+                </label>
+                <textarea name="notes" placeholder="مثلاً: واجهة شمالية، قرب مسجد، موقف سيارات..." rows="4"
+                    class="inp"></textarea>
+            </div>
+
+            <button type="submit" class="btn"
+                style="width: 100%; justify-content: center; padding: 18px; font-size: 1.1rem; margin-top: 10px;">
+                <i class="fas fa-rocket"></i>
+                إرسال الطلب للمكاتب
+            </button>
         </form>
+
+        <!-- Trust Indicators -->
+        <div
+            style="display: flex; justify-content: center; gap: 30px; margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--glass-border);">
+            <div style="text-align: center;">
+                <i class="fas fa-shield-alt" style="font-size: 24px; color: var(--primary); margin-bottom: 8px;"></i>
+                <div style="color: var(--text-muted); font-size: 0.85rem;">بياناتك آمنة</div>
+            </div>
+            <div style="text-align: center;">
+                <i class="fas fa-bolt" style="font-size: 24px; color: var(--secondary); margin-bottom: 8px;"></i>
+                <div style="color: var(--text-muted); font-size: 0.85rem;">رد سريع</div>
+            </div>
+            <div style="text-align: center;">
+                <i class="fas fa-users" style="font-size: 24px; color: var(--accent); margin-bottom: 8px;"></i>
+                <div style="color: var(--text-muted); font-size: 0.85rem;">+50 مكتب</div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

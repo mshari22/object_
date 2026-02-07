@@ -1,86 +1,206 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
-        
+    <div style="display: grid; grid-template-columns: 1fr 400px; gap: 40px;">
+
+        <!-- Left Column - Property Details -->
         <div>
-            <img src="{{ url_for('static', filename='uploads/' + p['image_path']) }}" style="width: 100%; height: 400px; object-fit: cover; border-radius: 15px;">
-            <h1 style="margin: 20px 0;">{{ p['title'] }}</h1>
-            <h2 style="color: #27ae60;">{{ "{:,.0f}".format(p['price']) }} ريال</h2>
-            
-            <div style="display: flex; gap: 20px; background: white; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                <span><i class="fas fa-ruler-combined"></i> {{ p['area'] }} م²</span>
-                <span><i class="fas fa-bed"></i> {{ p['rooms'] }} غرف</span>
-                <span><i class="fas fa-bath"></i> {{ p['bathrooms'] }} حمام</span>
-                <span><i class="fas fa-history"></i> عمر {{ p['age'] }} سنة</span>
-            </div>
-            
-            <div style="background: white; padding: 25px; border-radius: 15px; line-height: 1.8;">
-                <h3>تفاصيل العقار</h3>
-                <p>{{ p['description'] }}</p>
+            <!-- Property Image -->
+            <div class="glass-card animate-in" style="padding: 0; overflow: hidden; margin-bottom: 30px;">
+                {% if p['image_path'] %}
+                <img src="{{ url_for('static', filename='uploads/' + p['image_path']) }}"
+                    style="width: 100%; height: 450px; object-fit: cover;">
+                {% else %}
+                <div
+                    style="width: 100%; height: 450px; background: var(--gradient-2); display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-home" style="font-size: 80px; color: var(--primary);"></i>
+                </div>
+                {% endif %}
             </div>
 
-            <div style="margin-top: 30px; background: white; padding: 25px; border-radius: 15px;">
-                <h3>📊 تقييم حي {{ p['district'] }}</h3>
-                <div style="display: flex; justify-content: space-between; margin-top: 15px;">
-                    <div>🛡️ الأمان: ⭐⭐⭐⭐⭐</div>
-                    <div>💰 مؤشر السعر: 📈 مرتفع</div>
-                    <div>🏫 خدمات: متكامل</div>
+            <!-- Title & Price -->
+            <div class="animate-in" style="animation-delay: 0.1s; margin-bottom: 30px;">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <span class="badge">{{ p['type'] }}</span>
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">
+                        <i class="fas fa-eye"></i> {{ p['views'] }} مشاهدة
+                    </span>
+                </div>
+                <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 15px;">{{ p['title'] }}</h1>
+                <h2
+                    style="font-size: 2rem; font-weight: 800; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    {{ "{:,.0f}".format(p['price']) }} ريال
+                </h2>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="glass-card animate-in" style="animation-delay: 0.2s; margin-bottom: 30px;">
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center;">
+                    <div>
+                        <i class="fas fa-ruler-combined"
+                            style="font-size: 24px; color: var(--primary); margin-bottom: 10px;"></i>
+                        <div style="font-size: 1.3rem; font-weight: 700;">{{ p['area'] }}</div>
+                        <div style="color: var(--text-muted); font-size: 0.85rem;">م²</div>
+                    </div>
+                    <div>
+                        <i class="fas fa-bed"
+                            style="font-size: 24px; color: var(--secondary); margin-bottom: 10px;"></i>
+                        <div style="font-size: 1.3rem; font-weight: 700;">{{ p['rooms'] }}</div>
+                        <div style="color: var(--text-muted); font-size: 0.85rem;">غرف</div>
+                    </div>
+                    <div>
+                        <i class="fas fa-bath" style="font-size: 24px; color: var(--accent); margin-bottom: 10px;"></i>
+                        <div style="font-size: 1.3rem; font-weight: 700;">{{ p['bathrooms'] }}</div>
+                        <div style="color: var(--text-muted); font-size: 0.85rem;">حمام</div>
+                    </div>
+                    <div>
+                        <i class="fas fa-clock"
+                            style="font-size: 24px; color: var(--primary); margin-bottom: 10px;"></i>
+                        <div style="font-size: 1.3rem; font-weight: 700;">{{ p['age'] }}</div>
+                        <div style="color: var(--text-muted); font-size: 0.85rem;">سنة</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="glass-card animate-in" style="animation-delay: 0.3s; margin-bottom: 30px;">
+                <h3 style="font-size: 1.3rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-file-alt" style="color: var(--primary);"></i>
+                    تفاصيل العقار
+                </h3>
+                <p style="color: var(--text-secondary); line-height: 2; font-size: 1.05rem;">{{ p['description'] }}</p>
+            </div>
+
+            <!-- District Rating -->
+            <div class="glass-card animate-in" style="animation-delay: 0.4s;">
+                <h3 style="font-size: 1.3rem; margin-bottom: 25px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-chart-bar" style="color: var(--secondary);"></i>
+                    تقييم حي {{ p['district'] }}
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                    <div class="glass-card"
+                        style="text-align: center; padding: 20px; background: rgba(0, 212, 170, 0.05); border-color: rgba(0, 212, 170, 0.2);">
+                        <div style="font-size: 28px; margin-bottom: 10px;">🛡️</div>
+                        <div style="font-weight: 600; margin-bottom: 5px;">الأمان</div>
+                        <div style="color: var(--primary);">⭐⭐⭐⭐⭐</div>
+                    </div>
+                    <div class="glass-card"
+                        style="text-align: center; padding: 20px; background: rgba(124, 58, 237, 0.05); border-color: rgba(124, 58, 237, 0.2);">
+                        <div style="font-size: 28px; margin-bottom: 10px;">💰</div>
+                        <div style="font-weight: 600; margin-bottom: 5px;">مؤشر السعر</div>
+                        <div style="color: var(--secondary);">📈 مرتفع</div>
+                    </div>
+                    <div class="glass-card"
+                        style="text-align: center; padding: 20px; background: rgba(244, 114, 182, 0.05); border-color: rgba(244, 114, 182, 0.2);">
+                        <div style="font-size: 28px; margin-bottom: 10px;">🏫</div>
+                        <div style="font-weight: 600; margin-bottom: 5px;">الخدمات</div>
+                        <div style="color: var(--accent);">متكامل</div>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- Right Column - Contact & Calculator -->
         <div>
-            <div style="background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
-                <h3>تواصل مع المالك</h3>
-                <a href="https://wa.me/966590192582" class="btn" style="width: 100%; text-align: center; margin-bottom: 10px; background: #25D366;"><i class="fab fa-whatsapp"></i> واتساب</a>
-                <button class="btn" style="width: 100%; background: #333;">📅 احجز زيارة</button>
+            <!-- Contact Card -->
+            <div class="glass-card animate-in"
+                style="animation-delay: 0.2s; margin-bottom: 25px; position: sticky; top: 100px;">
+                <h3 style="font-size: 1.2rem; margin-bottom: 25px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-phone-alt" style="color: var(--primary);"></i>
+                    تواصل مع المالك
+                </h3>
+                <a href="https://wa.me/966590192582" class="btn"
+                    style="width: 100%; justify-content: center; margin-bottom: 15px; background: linear-gradient(135deg, #25D366, #128C7E); box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);">
+                    <i class="fab fa-whatsapp" style="font-size: 20px;"></i>
+                    تواصل واتساب
+                </a>
+                <button class="btn btn-secondary" style="width: 100%; justify-content: center;">
+                    <i class="fas fa-calendar-alt"></i>
+                    احجز زيارة
+                </button>
             </div>
 
-            <div style="background: #1a1a1a; color: white; padding: 25px; border-radius: 15px; margin-top: 20px;">
-                <h3>🧮 حاسبة التمويل</h3>
-                <label>الراتب الشهري:</label>
-                <input type="number" id="salary" style="width: 100%; padding: 8px; margin: 5px 0; border-radius: 5px; border: none;">
-                <label>الدفعة الأولى:</label>
-                <input type="number" id="downpayment" style="width: 100%; padding: 8px; margin: 5px 0; border-radius: 5px; border: none;">
-                <button onclick="calculate()" class="btn" style="width: 100%; margin-top: 15px;">احسب القسط</button>
-                <div id="result" style="margin-top: 15px; color: #27ae60; font-weight: bold;"></div>
+            <!-- Finance Calculator -->
+            <div class="glass-card animate-in"
+                style="animation-delay: 0.3s; margin-bottom: 25px; background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(0, 212, 170, 0.05));">
+                <h3 style="font-size: 1.2rem; margin-bottom: 25px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-calculator" style="color: var(--secondary);"></i>
+                    حاسبة التمويل
+                </h3>
+                <div style="margin-bottom: 20px;">
+                    <label
+                        style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">الراتب
+                        الشهري</label>
+                    <input type="number" id="salary" placeholder="مثال: 15000" class="inp">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label
+                        style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">الدفعة
+                        الأولى</label>
+                    <input type="number" id="downpayment" placeholder="مثال: 100000" class="inp">
+                </div>
+                <button onclick="calculate()" class="btn" style="width: 100%; justify-content: center;">
+                    <i class="fas fa-coins"></i>
+                    احسب القسط
+                </button>
+                <div id="result"
+                    style="margin-top: 20px; padding: 20px; background: rgba(0, 212, 170, 0.1); border-radius: 12px; text-align: center; font-weight: 700; display: none;">
+                </div>
             </div>
-            
-            <div id="map" style="height: 250px; border-radius: 15px; margin-top: 20px;"></div>
+
+            <!-- Map -->
+            <div class="glass-card animate-in" style="animation-delay: 0.4s; padding: 0; overflow: hidden;">
+                <div id="map" style="height: 280px; border-radius: 24px;"></div>
+            </div>
         </div>
     </div>
 </div>
 
-<script>
-    // كود الخريطة
-    var map = L.map('map').setView([{{ p['latitude'] }}, {{ p['longitude'] }}], 14);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-    L.marker([{{ p['latitude'] }}, {{ p['longitude'] }}]).addTo(map);
+<style>
+    @media (max-width: 900px) {
+        .container>div:first-child {
+            grid-template-columns: 1fr !important;
+        }
+    }
+</style>
+{% endblock %}
 
-    // كود حاسبة التمويل
+{% block scripts %}
+<script>
+    // Map initialization
+    var map = L.map('map').setView([{{ p['latitude'] }}, { { p['longitude'] } }], 14);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '©OpenStreetMap, ©CartoDB'
+    }).addTo(map);
+    L.marker([{{ p['latitude'] }}, {{ p['longitude'] }}]).addTo(map)
+        .bindPopup('<b>{{ p["title"] }}</b>').openPopup();
+
+    // Finance calculator
     function calculate() {
         let salary = parseFloat(document.getElementById('salary').value);
         let down = parseFloat(document.getElementById('downpayment').value) || 0;
-        let propertyPrice = {{ p['price'] }};
-        
-        if(!salary) { document.getElementById('result').innerText = "يرجى إدخال الراتب"; return; }
-        
-        // حسبة تقريبية: القسط لا يتجاوز 65% من الراتب
-        let maxInstallment = salary * 0.65;
-        let loanAmount = propertyPrice - down;
-        // فرضية فائدة سنوية 3% لمدة 25 سنة
-        let monthlyRate = 0.03 / 12;
-        let months = 25 * 12;
-        let emi = loanAmount * monthlyRate * (Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
-        
-        if (emi > maxInstallment) {
-            document.getElementById('result').innerText = "القسط المتوقع: " + emi.toFixed(0) + " ريال (عالي جداً على راتبك)";
-            document.getElementById('result').style.color = "red";
-        } else {
-            document.getElementById('result').innerText = "القسط الشهري التقريبي: " + emi.toFixed(0) + " ريال";
-            document.getElementById('result').style.color = "#27ae60";
-        }
+        let propertyPrice = {{ p['price'] }
+    };
+    let resultDiv = document.getElementById('result');
+
+    resultDiv.style.display = 'block';
+
+    if (!salary) {
+        resultDiv.innerHTML = '<span style="color: var(--accent);">يرجى إدخال الراتب</span>';
+        return;
+    }
+
+    let maxInstallment = salary * 0.65;
+    let loanAmount = propertyPrice - down;
+    let monthlyRate = 0.03 / 12;
+    let months = 25 * 12;
+    let emi = loanAmount * monthlyRate * (Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+
+    if (emi > maxInstallment) {
+        resultDiv.innerHTML = '<span style="color: var(--accent);">القسط المتوقع: ' + emi.toFixed(0) + ' ريال<br><small style="font-weight: 400;">عالي جداً على راتبك</small></span>';
+    } else {
+        resultDiv.innerHTML = '<span style="color: var(--primary);">القسط الشهري: ' + emi.toFixed(0) + ' ريال<br><small style="font-weight: 400;">✓ مناسب لراتبك</small></span>';
+    }
     }
 </script>
 {% endblock %}

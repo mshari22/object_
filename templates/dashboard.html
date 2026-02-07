@@ -1,57 +1,195 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <h1 style="margin-bottom: 30px;">لوحة التحكم</h1>
-    
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-        <div style="background: white; padding: 30px; border-radius: 15px;">
-            <h2><i class="fas fa-plus-circle"></i> إضافة عقار جديد</h2>
-            <form method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 15px;">
-                <input type="text" name="title" placeholder="عنوان الإعلان" required class="inp">
-                <div style="display: flex; gap: 10px;">
-                    <input type="number" name="price" placeholder="السعر" required class="inp">
-                    <input type="text" name="district" placeholder="الحي" required class="inp">
+    <!-- Page Header -->
+    <div style="margin-bottom: 40px;" class="animate-in">
+        <h1 class="section-title">لوحة التحكم</h1>
+        <p class="section-subtitle">إدارة عقاراتك وطلبات العملاء</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 35px;">
+
+        <!-- Add Property Form -->
+        <div class="glass-card animate-in" style="animation-delay: 0.1s;">
+            <h2 style="font-size: 1.4rem; margin-bottom: 30px; display: flex; align-items: center; gap: 12px;">
+                <div
+                    style="width: 45px; height: 45px; background: var(--gradient-1); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-plus" style="color: white;"></i>
                 </div>
-                <select name="type" class="inp">
-                    <option value="فيلا">فيلا</option>
-                    <option value="شقة">شقة</option>
-                    <option value="أرض">أرض</option>
-                </select>
-                <div style="display: flex; gap: 10px;">
-                    <input type="number" name="area" placeholder="المساحة (م²)" required class="inp">
-                    <input type="number" name="rooms" placeholder="الغرف" class="inp">
-                    <input type="number" name="bathrooms" placeholder="الحمامات" class="inp">
+                إضافة عقار جديد
+            </h2>
+
+            <form method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                    <label
+                        style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">عنوان
+                        الإعلان</label>
+                    <input type="text" name="title" placeholder="مثال: فيلا فاخرة في الملقا" required class="inp">
                 </div>
-                <div style="display: flex; gap: 10px;">
-                    <input type="number" name="age" placeholder="عمر العقار (سنة)" class="inp">
-                    <input type="number" step="any" name="lat" placeholder="Latitude" required class="inp">
-                    <input type="number" step="any" name="lng" placeholder="Longitude" required class="inp">
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label
+                            style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">السعر</label>
+                        <input type="number" name="price" placeholder="مثال: 2500000" required class="inp">
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">الحي</label>
+                        <input type="text" name="district" placeholder="مثال: الملقا" required class="inp">
+                    </div>
                 </div>
-                <textarea name="description" placeholder="وصف العقار والمميزات..." rows="4" class="inp"></textarea>
-                <input type="text" name="location" placeholder="وصف الموقع (نصي)" class="inp">
-                <label>صور العقار:</label>
-                <input type="file" name="image" required>
-                <button type="submit" class="btn">نشر العقار</button>
+
+                <div>
+                    <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">نوع
+                        العقار</label>
+                    <select name="type" class="inp">
+                        <option value="فيلا">فيلا</option>
+                        <option value="شقة">شقة</option>
+                        <option value="أرض">أرض</option>
+                    </select>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label
+                            style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">المساحة
+                            (م²)</label>
+                        <input type="number" name="area" placeholder="500" required class="inp">
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">الغرف</label>
+                        <input type="number" name="rooms" placeholder="5" class="inp">
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">الحمامات</label>
+                        <input type="number" name="bathrooms" placeholder="3" class="inp">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label
+                            style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">عمر
+                            العقار</label>
+                        <input type="number" name="age" placeholder="5" class="inp">
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">Latitude</label>
+                        <input type="number" step="any" name="lat" placeholder="24.7136" required class="inp">
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">Longitude</label>
+                        <input type="number" step="any" name="lng" placeholder="46.6753" required class="inp">
+                    </div>
+                </div>
+
+                <div>
+                    <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">وصف
+                        العقار</label>
+                    <textarea name="description" placeholder="اكتب وصفاً تفصيلياً للعقار ومميزاته..." rows="4"
+                        class="inp"></textarea>
+                </div>
+
+                <div>
+                    <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">وصف
+                        الموقع</label>
+                    <input type="text" name="location" placeholder="شمال الرياض، قريب من..." class="inp">
+                </div>
+
+                <div>
+                    <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
+                        <i class="fas fa-image"></i> صور العقار
+                    </label>
+                    <div
+                        style="background: rgba(255,255,255,0.03); border: 2px dashed var(--glass-border); border-radius: 14px; padding: 30px; text-align: center; transition: 0.3s;">
+                        <i class="fas fa-cloud-upload-alt"
+                            style="font-size: 32px; color: var(--primary); margin-bottom: 10px;"></i>
+                        <p style="color: var(--text-muted); margin-bottom: 15px;">اسحب الصورة أو اضغط للاختيار</p>
+                        <input type="file" name="image" required style="color: var(--text-secondary);">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn"
+                    style="width: 100%; justify-content: center; padding: 18px; font-size: 1.1rem;">
+                    <i class="fas fa-rocket"></i>
+                    نشر العقار
+                </button>
             </form>
         </div>
 
-        <div style="background: white; padding: 30px; border-radius: 15px;">
-            <h2><i class="fas fa-bullhorn"></i> طلبات الباحثين عن عقار</h2>
-            {% for r in requests %}
-            <div style="border-bottom: 1px solid #eee; padding: 15px 0;">
-                <div style="font-weight: bold;">مطلوب: {{ r['type'] }} في {{ r['district'] }}</div>
-                <div style="color: #27ae60;">الميزانية: {{ r['budget_min'] }} - {{ r['budget_max'] }} ريال</div>
-                <div style="color: #777; font-size: 14px;">"{{ r['notes'] }}"</div>
-                <div style="margin-top: 5px;">
-                    <a href="tel:{{ r['phone'] }}" class="btn" style="padding: 5px 10px; font-size: 12px;">اتصل بالعميل: {{ r['user_name'] }}</a>
+        <!-- Client Requests -->
+        <div class="glass-card animate-in" style="animation-delay: 0.2s;">
+            <h2 style="font-size: 1.4rem; margin-bottom: 30px; display: flex; align-items: center; gap: 12px;">
+                <div
+                    style="width: 45px; height: 45px; background: linear-gradient(135deg, var(--secondary), var(--accent)); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-bullhorn" style="color: white;"></i>
                 </div>
+                طلبات الباحثين عن عقار
+                <span class="badge" style="margin-right: auto;">{{ requests|length }} طلب</span>
+            </h2>
+
+            <div style="max-height: 600px; overflow-y: auto; padding-left: 10px;">
+                {% for r in requests %}
+                <div class="glass-card" style="margin-bottom: 20px; background: rgba(255,255,255,0.02); padding: 25px;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                        <div>
+                            <span class="badge"
+                                style="background: rgba(124, 58, 237, 0.15); border-color: rgba(124, 58, 237, 0.3); color: var(--secondary);">
+                                {{ r['type'] }}
+                            </span>
+                        </div>
+                        <span style="color: var(--text-muted); font-size: 0.8rem;">
+                            <i class="fas fa-clock"></i> {{ r['date'] }}
+                        </span>
+                    </div>
+
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 10px;">
+                        مطلوب في <span style="color: var(--primary);">{{ r['district'] }}</span>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                        <span
+                            style="background: rgba(0, 212, 170, 0.1); padding: 8px 15px; border-radius: 8px; font-size: 0.9rem;">
+                            <i class="fas fa-coins" style="color: var(--primary);"></i>
+                            {{ "{:,.0f}".format(r['budget_min']) }} - {{ "{:,.0f}".format(r['budget_max']) }} ريال
+                        </span>
+                    </div>
+
+                    {% if r['notes'] %}
+                    <p
+                        style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 10px;">
+                        "{{ r['notes'] }}"
+                    </p>
+                    {% endif %}
+
+                    <a href="tel:{{ r['phone'] }}" class="btn"
+                        style="width: 100%; justify-content: center; padding: 12px;">
+                        <i class="fas fa-phone-alt"></i>
+                        اتصل بـ {{ r['user_name'] }}
+                    </a>
+                </div>
+                {% else %}
+                <div style="text-align: center; padding: 50px 20px;">
+                    <i class="fas fa-inbox" style="font-size: 48px; color: var(--text-muted); margin-bottom: 20px;"></i>
+                    <p style="color: var(--text-muted);">لا توجد طلبات حالياً</p>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
     </div>
 </div>
 
 <style>
-    .inp { padding: 10px; border: 1px solid #ddd; border-radius: 8px; width: 100%; box-sizing: border-box; }
+    @media (max-width: 900px) {
+        .container>div:nth-child(2) {
+            grid-template-columns: 1fr !important;
+        }
+    }
 </style>
 {% endblock %}

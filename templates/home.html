@@ -1,8 +1,105 @@
 {% extends 'base.html' %}
 {% block content %}
-<div style="height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80'); background-size: cover; color: white;">
-    <h1 style="font-size: 50px; margin-bottom: 20px;">مستقبل العقار في الرياض</h1>
-    <p style="font-size: 22px; max-width: 700px; margin-bottom: 40px;">اكتشف منزلك الجديد باستخدام أذكى تقنيات البحث العقاري.</p>
-    <a href="/browse" class="btn" style="padding: 15px 40px; font-size: 20px; border-radius: 50px;">تصفح السوق الآن</a>
+<!-- Hero Section -->
+<div
+    style="min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden; padding: 40px 20px;">
+
+    <!-- Animated Gradient Background -->
+    <div style="position: absolute; inset: 0; background: 
+        radial-gradient(circle at 30% 20%, rgba(0, 212, 170, 0.25) 0%, transparent 40%),
+        radial-gradient(circle at 70% 80%, rgba(124, 58, 237, 0.25) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(244, 114, 182, 0.1) 0%, transparent 50%);
+        z-index: -1;"></div>
+
+    <!-- Badge -->
+    <div class="badge animate-in" style="margin-bottom: 30px; animation-delay: 0.1s;">
+        <i class="fas fa-sparkles"></i>
+        أذكى منصة عقارية في الرياض
+    </div>
+
+    <!-- Main Title -->
+    <h1 class="animate-in"
+        style="font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; margin-bottom: 25px; line-height: 1.2; animation-delay: 0.2s;">
+        <span
+            style="background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">مستقبل
+            العقار</span>
+        <br>
+        <span style="color: var(--text-primary);">في الرياض</span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="animate-in"
+        style="font-size: 1.3rem; color: var(--text-secondary); max-width: 600px; margin-bottom: 50px; line-height: 1.8; animation-delay: 0.3s;">
+        اكتشف منزلك الجديد باستخدام أذكى تقنيات البحث العقاري.
+        نربطك بأفضل الفرص العقارية في جميع أحياء الرياض.
+    </p>
+
+    <!-- CTA Buttons -->
+    <div class="animate-in"
+        style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; animation-delay: 0.4s;">
+        <a href="/browse" class="btn" style="padding: 18px 45px; font-size: 1.1rem; border-radius: 50px;">
+            <i class="fas fa-search"></i>
+            تصفح السوق الآن
+        </a>
+        <a href="/request_property" class="btn btn-secondary"
+            style="padding: 18px 45px; font-size: 1.1rem; border-radius: 50px;">
+            <i class="fas fa-paper-plane"></i>
+            اطلب عقارك
+        </a>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="glass-card animate-in"
+        style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 80px; padding: 0; overflow: hidden; max-width: 700px; width: 100%; animation-delay: 0.5s;">
+        <div class="stat-box" style="border-left: 1px solid var(--glass-border);">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">عقار متاح</div>
+        </div>
+        <div class="stat-box" style="border-left: 1px solid var(--glass-border);">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">حي في الرياض</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-number">1000+</div>
+            <div class="stat-label">عميل سعيد</div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="container">
+    <div style="text-align: center; margin-bottom: 60px;">
+        <h2 class="section-title">لماذا OBJECT؟</h2>
+        <p class="section-subtitle">نقدم تجربة عقارية لا مثيل لها</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+        <div class="glass-card" style="text-align: center;">
+            <div
+                style="width: 70px; height: 70px; background: var(--gradient-2); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; border: 1px solid var(--glass-border);">
+                <i class="fas fa-search-location" style="font-size: 28px; color: var(--primary);"></i>
+            </div>
+            <h3 style="font-size: 1.3rem; margin-bottom: 12px;">بحث ذكي</h3>
+            <p style="color: var(--text-muted); line-height: 1.7;">فلترة متقدمة حسب الحي، النوع، السعر والمواصفات</p>
+        </div>
+
+        <div class="glass-card" style="text-align: center;">
+            <div
+                style="width: 70px; height: 70px; background: var(--gradient-2); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; border: 1px solid var(--glass-border);">
+                <i class="fas fa-map-marked-alt" style="font-size: 28px; color: var(--secondary);"></i>
+            </div>
+            <h3 style="font-size: 1.3rem; margin-bottom: 12px;">خرائط تفاعلية</h3>
+            <p style="color: var(--text-muted); line-height: 1.7;">شاهد موقع العقار بدقة على الخريطة</p>
+        </div>
+
+        <div class="glass-card" style="text-align: center;">
+            <div
+                style="width: 70px; height: 70px; background: var(--gradient-2); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; border: 1px solid var(--glass-border);">
+                <i class="fas fa-calculator" style="font-size: 28px; color: var(--accent);"></i>
+            </div>
+            <h3 style="font-size: 1.3rem; margin-bottom: 12px;">حاسبة التمويل</h3>
+            <p style="color: var(--text-muted); line-height: 1.7;">احسب القسط الشهري بناءً على راتبك</p>
+        </div>
+    </div>
 </div>
 {% endblock %}
