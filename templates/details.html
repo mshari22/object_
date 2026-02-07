@@ -157,9 +157,44 @@
 </div>
 
 <style>
+    /* Details page responsive */
+    .details-grid {
+        display: grid;
+        grid-template-columns: 1fr 400px;
+        gap: 40px;
+    }
+
+    .quick-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        text-align: center;
+    }
+
+    .district-ratings {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
     @media (max-width: 900px) {
-        .container>div:first-child {
+        .details-grid {
             grid-template-columns: 1fr !important;
+        }
+
+        .quick-stats-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+        }
+
+        .district-ratings {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .quick-stats-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 15px;
         }
     }
 </style>
@@ -177,11 +212,11 @@
 
     // Finance calculator
     function calculate() {
-        let salary = parseFloat(document.getElementById('salary').value);
-        let down = parseFloat(document.getElementById('downpayment').value) || 0;
-        let propertyPrice = {{ p['price'] }
+        var salary = parseFloat(document.getElementById('salary').value);
+        var down = parseFloat(document.getElementById('downpayment').value) || 0;
+        var propertyPrice = {{ p['price'] }
     };
-    let resultDiv = document.getElementById('result');
+    var resultDiv = document.getElementById('result');
 
     resultDiv.style.display = 'block';
 
@@ -190,11 +225,11 @@
         return;
     }
 
-    let maxInstallment = salary * 0.65;
-    let loanAmount = propertyPrice - down;
-    let monthlyRate = 0.03 / 12;
-    let months = 25 * 12;
-    let emi = loanAmount * monthlyRate * (Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+    var maxInstallment = salary * 0.65;
+    var loanAmount = propertyPrice - down;
+    var monthlyRate = 0.03 / 12;
+    var months = 25 * 12;
+    var emi = loanAmount * monthlyRate * (Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
 
     if (emi > maxInstallment) {
         resultDiv.innerHTML = '<span style="color: var(--accent);">القسط المتوقع: ' + emi.toFixed(0) + ' ريال<br><small style="font-weight: 400;">عالي جداً على راتبك</small></span>';

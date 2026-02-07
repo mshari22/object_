@@ -186,8 +186,42 @@
 </div>
 
 <style>
+    /* Dashboard responsive */
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 35px;
+    }
+
+    .form-row-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .form-row-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 15px;
+    }
+
     @media (max-width: 900px) {
+
+        .dashboard-grid,
         .container>div:nth-child(2) {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    @media (max-width: 600px) {
+
+        .form-row-2,
+        .form-row-3 {
+            grid-template-columns: 1fr !important;
+        }
+
+        div[style*="grid-template-columns: 1fr 1fr;"],
+        div[style*="grid-template-columns: 1fr 1fr 1fr;"] {
             grid-template-columns: 1fr !important;
         }
     }

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ lang }}" dir="{{ t['dir'] }}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ t['title'] }} | Premium Real Estate</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
@@ -48,7 +50,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(ellipse at 20% 20%, rgba(0, 212, 170, 0.15) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 80%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
                 radial-gradient(ellipse at 50% 50%, rgba(244, 114, 182, 0.08) 0%, transparent 60%);
@@ -57,8 +59,17 @@
         }
 
         @keyframes backgroundPulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.05); }
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
         }
 
         /* Floating Orbs */
@@ -69,14 +80,50 @@
             z-index: -1;
             animation: float 20s ease-in-out infinite;
         }
-        .orb-1 { width: 400px; height: 400px; background: var(--primary); top: -100px; right: -100px; opacity: 0.15; }
-        .orb-2 { width: 300px; height: 300px; background: var(--secondary); bottom: -100px; left: -100px; opacity: 0.12; animation-delay: -7s; }
-        .orb-3 { width: 200px; height: 200px; background: var(--accent); top: 50%; left: 50%; opacity: 0.08; animation-delay: -14s; }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            top: -100px;
+            right: -100px;
+            opacity: 0.15;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--secondary);
+            bottom: -100px;
+            left: -100px;
+            opacity: 0.12;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent);
+            top: 50%;
+            left: 50%;
+            opacity: 0.08;
+            animation-delay: -14s;
+        }
 
         @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -30px) rotate(120deg); }
-            66% { transform: translate(-20px, 20px) rotate(240deg); }
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(30px, -30px) rotate(120deg);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) rotate(240deg);
+            }
         }
 
         /* Glassmorphism Navbar */
@@ -187,7 +234,7 @@
             border: 1px solid var(--glass-border);
             border-radius: 24px;
             padding: 30px;
-            box-shadow: 
+            box-shadow:
                 0 8px 32px rgba(0, 0, 0, 0.3),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -196,7 +243,7 @@
         .glass-card:hover {
             transform: translateY(-5px);
             border-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 
+            box-shadow:
                 0 20px 60px rgba(0, 0, 0, 0.4),
                 0 0 40px var(--primary-glow),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -226,7 +273,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
             opacity: 0;
             transition: opacity 0.3s;
         }
@@ -252,7 +299,10 @@
         }
 
         /* Inputs */
-        .inp, input, select, textarea {
+        .inp,
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 16px 20px;
             background: rgba(255, 255, 255, 0.03);
@@ -265,14 +315,19 @@
             box-sizing: border-box;
         }
 
-        .inp:focus, input:focus, select:focus, textarea:focus {
+        .inp:focus,
+        input:focus,
+        select:focus,
+        textarea:focus {
             outline: none;
             border-color: var(--primary);
             background: rgba(0, 212, 170, 0.05);
             box-shadow: 0 0 20px rgba(0, 212, 170, 0.15);
         }
 
-        .inp::placeholder, input::placeholder, textarea::placeholder {
+        .inp::placeholder,
+        input::placeholder,
+        textarea::placeholder {
             color: var(--text-muted);
         }
 
@@ -329,7 +384,7 @@
         .property-card:hover {
             transform: translateY(-10px) scale(1.02);
             border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 
+            box-shadow:
                 0 30px 80px rgba(0, 0, 0, 0.5),
                 0 0 50px var(--primary-glow);
         }
@@ -466,6 +521,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -516,22 +572,292 @@
             margin-top: 5px;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .menu-links {
-                display: none;
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Responsive - Large Tablets (1024px and below) */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 20px;
             }
-            
+
+            .property-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 25px;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .glass-card {
+                padding: 25px;
+            }
+        }
+
+        /* Responsive - Tablets (768px and below) */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+
+            .navbar {
+                padding: 12px 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--glass);
+                backdrop-filter: blur(25px);
+                -webkit-backdrop-filter: blur(25px);
+                flex-direction: column;
+                padding: 20px;
+                gap: 0;
+                border-bottom: 1px solid var(--glass-border);
+                transform: translateY(-150%);
+                opacity: 0;
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 999;
+            }
+
+            .menu-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .menu-links a {
+                padding: 18px 20px;
+                border-bottom: 1px solid var(--glass-border);
+                margin: 0;
+                font-size: 16px;
+            }
+
+            .menu-links a:last-child {
+                border-bottom: none;
+                margin-top: 10px;
+            }
+
+            .lang-btn {
+                text-align: center !important;
+                margin-top: 10px !important;
+            }
+
             .property-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
 
             .section-title {
                 font-size: 1.8rem;
             }
+
+            .section-subtitle {
+                font-size: 1rem;
+                margin-bottom: 30px;
+            }
+
+            .glass-card {
+                padding: 20px;
+                border-radius: 20px;
+            }
+
+            .btn {
+                padding: 14px 24px;
+                font-size: 15px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .container {
+                margin: 25px auto;
+                padding: 0 15px;
+            }
+
+            .stat-box {
+                padding: 20px 15px;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+
+            .stat-label {
+                font-size: 0.8rem;
+            }
+
+            footer {
+                padding: 35px 20px;
+                margin-top: 50px;
+            }
+
+            .property-content {
+                padding: 20px;
+            }
+
+            .property-features {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .orb-1,
+            .orb-2,
+            .orb-3 {
+                display: none;
+            }
+        }
+
+        /* Responsive - Mobile Phones (480px and below) */
+        @media (max-width: 480px) {
+            body {
+                padding-top: 65px;
+            }
+
+            .logo {
+                font-size: 22px;
+                letter-spacing: 2px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .glass-card {
+                padding: 18px;
+                border-radius: 16px;
+            }
+
+            .btn {
+                padding: 14px 20px;
+                font-size: 14px;
+                border-radius: 12px;
+            }
+
+            .inp,
+            input,
+            select,
+            textarea {
+                padding: 14px 16px;
+                font-size: 16px;
+                /* Prevents zoom on iOS */
+                border-radius: 12px;
+            }
+
+            .property-image {
+                height: 180px;
+            }
+
+            .property-title {
+                font-size: 1.1rem;
+            }
+
+            .property-price {
+                font-size: 1.2rem;
+            }
+
+            .badge {
+                padding: 5px 10px;
+                font-size: 0.75rem;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .property-features {
+                gap: 8px;
+            }
+
+            .property-feature {
+                font-size: 0.8rem;
+            }
+
+            footer p {
+                font-size: 0.85rem;
+            }
+
+            footer .logo {
+                font-size: 20px;
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .property-card:hover {
+                transform: none;
+            }
+
+            .btn:hover {
+                transform: none;
+            }
+
+            .glass-card:hover {
+                transform: none;
+            }
+
+            .menu-links a:active {
+                background: var(--gradient-2);
+            }
+
+            .btn:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* Landscape phones */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .navbar {
+                padding: 8px 0;
+            }
+
+            body {
+                padding-top: 55px;
+            }
         }
     </style>
 </head>
+
 <body>
     <!-- Floating Orbs -->
     <div class="orb orb-1"></div>
@@ -541,6 +867,11 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="/" class="logo">OBJECT</a>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
             <div class="menu-links">
                 <a href="/"><span>{{ t['home'] }}</span></a>
                 <a href="/browse"><span>{{ t['browse'] }}</span></a>
@@ -561,6 +892,19 @@
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        function toggleMenu() {
+            document.querySelector('.menu-toggle').classList.toggle('active');
+            document.querySelector('.menu-links').classList.toggle('active');
+        }
+        document.querySelectorAll('.menu-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.menu-toggle').classList.remove('active');
+                document.querySelector('.menu-links').classList.remove('active');
+            });
+        });
+    </script>
     {% block scripts %}{% endblock %}
 </body>
+
 </html>
