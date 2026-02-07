@@ -202,21 +202,83 @@
             z-index: 1;
         }
 
-        .lang-btn {
-            background: transparent !important;
-            border: 1px solid var(--primary) !important;
-            color: var(--primary) !important;
-            padding: 8px 20px !important;
-            border-radius: 25px !important;
-            font-size: 13px !important;
-            font-weight: 600 !important;
-            transition: all 0.3s !important;
+        /* Language Dropdown */
+        .lang-dropdown {
+            position: relative;
         }
 
-        .lang-btn:hover {
-            background: var(--primary) !important;
-            color: var(--dark) !important;
-            box-shadow: 0 0 25px var(--primary-glow) !important;
+        .lang-current {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--primary);
+            border-radius: 25px;
+            cursor: pointer;
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .lang-current:hover {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 0 25px var(--primary-glow);
+        }
+
+        .lang-flag {
+            font-size: 16px;
+        }
+
+        .lang-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 8px;
+            min-width: 160px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .lang-dropdown:hover .lang-menu,
+        .lang-dropdown.active .lang-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .lang-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .lang-option:hover {
+            background: var(--gradient-2);
+            color: var(--text-primary);
+        }
+
+        .lang-option.active {
+            background: rgba(0, 212, 170, 0.15);
+            color: var(--primary);
         }
 
         /* Container */
@@ -877,9 +939,28 @@
                 <a href="/browse"><span>{{ t['browse'] }}</span></a>
                 <a href="/request_property"><span>{{ t['request'] }}</span></a>
                 <a href="/dashboard"><span>{{ t['dashboard'] }}</span></a>
-                <a href="{{ url_for('set_lang', lang='en' if lang=='ar' else 'ar') }}" class="lang-btn">
-                    {{ 'English' if lang=='ar' else 'عربي' }}
-                </a>
+
+                <!-- Language Dropdown -->
+                <div class="lang-dropdown">
+                    <div class="lang-current">
+                        {% for l in languages %}
+                        {% if l.code == lang %}
+                        <span class="lang-flag">{{ l.flag }}</span>
+                        <span>{{ l.name }}</span>
+                        {% endif %}
+                        {% endfor %}
+                        <i class="fas fa-chevron-down" style="font-size: 10px;"></i>
+                    </div>
+                    <div class="lang-menu">
+                        {% for l in languages %}
+                        <a href="{{ url_for('set_lang', lang=l.code) }}"
+                            class="lang-option {{ 'active' if l.code == lang else '' }}">
+                            <span class="lang-flag">{{ l.flag }}</span>
+                            <span>{{ l.name }}</span>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
