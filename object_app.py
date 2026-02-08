@@ -111,7 +111,7 @@ TRANSLATIONS = {
     'ar': {
         'title': 'OBJECT', 'dir': 'rtl', 'align': 'right', 'font': 'Tajawal',
         'home': 'الرئيسية', 'browse': 'سوق العقارات', 'request': 'اطلب عقارك', 
-        'dashboard': 'لوحة التحكم', 'login': 'دخول', 'logout': 'خروج', 'signup': 'تسجيل',
+        'dashboard': 'إضافة عقار', 'login': 'دخول', 'logout': 'خروج', 'signup': 'تسجيل',
         'profile': 'ملفي الشخصي', 'contact_us': 'اتصل بنا', 'about_us': 'من نحن',
         'hero_title': 'مستقبل العقار', 'hero_subtitle': 'في الرياض',
         'hero_desc': 'اكتشف منزلك الجديد باستخدام أذكى تقنيات البحث العقاري.',
@@ -143,6 +143,8 @@ TRANSLATIONS = {
         'publish_now': 'نشر العقار الآن',
         'cancel_return': 'إلغاء والعودة للسوق',
         'select_location_map': 'حدد الموقع على الخريطة',
+        'click_map_to_select': 'انقر على الخريطة لتحديد الموقع',
+        'map_instructions': 'اسحب العلامة أو انقر على الخريطة لتحديد موقع العقار بدقة',
         'my_properties': 'عقاراتي',
         'no_properties': 'لم تقم بإضافة عقارات بعد',
         'edit': 'تعديل', 'delete': 'حذف', 'save_changes': 'حفظ التغييرات',
@@ -165,7 +167,7 @@ TRANSLATIONS = {
     'en': {
         'title': 'OBJECT', 'dir': 'ltr', 'align': 'left', 'font': 'Inter',
         'home': 'Home', 'browse': 'Marketplace', 'request': 'Request', 
-        'dashboard': 'Dashboard', 'login': 'Login', 'logout': 'Logout', 'signup': 'Sign Up',
+        'dashboard': 'Add Real Estate', 'login': 'Login', 'logout': 'Logout', 'signup': 'Sign Up',
         'profile': 'My Profile', 'contact_us': 'Contact Us', 'about_us': 'About Us',
         'hero_title': 'Future of Real Estate', 'hero_subtitle': 'in Riyadh',
         'hero_desc': 'Discover your new home using the smartest real estate search technology.',
@@ -197,6 +199,8 @@ TRANSLATIONS = {
         'publish_now': 'Publish Property Now',
         'cancel_return': 'Cancel and Return',
         'select_location_map': 'Select Location on Map',
+        'click_map_to_select': 'Click on map to select location',
+        'map_instructions': 'Drag the marker or click on the map to precisely select property location',
         'my_properties': 'My Properties',
         'no_properties': 'No properties listed yet',
         'edit': 'Edit', 'delete': 'Delete', 'save_changes': 'Save Changes',
@@ -302,8 +306,7 @@ def dashboard():
             return redirect(url_for('dashboard'))
     
     properties = Property.query.all()
-    requests_list = Request.query.order_by(Request.date.desc()).all()
-    return render_template('dashboard.html', properties=properties, requests=requests_list)
+    return render_template('dashboard.html', properties=properties)
 
 @app.route('/request_property', methods=['GET', 'POST'])
 def request_property():

@@ -4,13 +4,53 @@
     <!-- Page Header -->
     <div style="margin-bottom: 40px;" class="animate-in">
         <h1 class="section-title">{{ t['dashboard'] }}</h1>
-        <p class="section-subtitle">{{ t['client_requests'] }}</p>
+        <p class="section-subtitle">{{ t['map_instructions'] }}</p>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 35px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 35px;" class="dashboard-grid">
+
+        <!-- Interactive Map -->
+        <div class="glass-card animate-in" style="animation-delay: 0.1s;">
+            <h2 style="font-size: 1.4rem; margin-bottom: 20px; display: flex; align-items: center; gap: 12px;">
+                <div
+                    style="width: 45px; height: 45px; background: linear-gradient(135deg, #00d4aa, #7c3aed); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-map-marked-alt" style="color: white;"></i>
+                </div>
+                {{ t['select_location_map'] }}
+            </h2>
+
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">
+                <i class="fas fa-info-circle" style="color: var(--primary);"></i>
+                {{ t['click_map_to_select'] }}
+            </p>
+
+            <!-- Map Container -->
+            <div id="map"
+                style="width: 100%; height: 500px; border-radius: 16px; overflow: hidden; border: 2px solid var(--glass-border);">
+            </div>
+
+            <!-- Coordinates Display -->
+            <div
+                style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div>
+                    <label style="display: block; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 5px;">
+                        <i class="fas fa-map-pin"></i> {{ t['latitude'] }}
+                    </label>
+                    <div id="lat-display" style="font-size: 1.1rem; font-weight: 600; color: var(--primary);">24.7136
+                    </div>
+                </div>
+                <div>
+                    <label style="display: block; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 5px;">
+                        <i class="fas fa-map-pin"></i> {{ t['longitude'] }}
+                    </label>
+                    <div id="lng-display" style="font-size: 1.1rem; font-weight: 600; color: var(--secondary);">46.6753
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Add Property Form -->
-        <div class="glass-card animate-in" style="animation-delay: 0.1s;">
+        <div class="glass-card animate-in" style="animation-delay: 0.2s;">
             <h2 style="font-size: 1.4rem; margin-bottom: 30px; display: flex; align-items: center; gap: 12px;">
                 <div
                     style="width: 45px; height: 45px; background: var(--gradient-1); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
@@ -22,16 +62,17 @@
             <form method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 20px;">
                 <div>
                     <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                        {{ t['property_details'] }}
+                        {{ t['property_name'] }}
                     </label>
-                    <input type="text" name="title" placeholder="{{ t['property_details'] }}" required class="inp">
+                    <input type="text" name="title" placeholder="{{ t['property_name_placeholder'] }}" required
+                        class="inp">
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;" class="form-row-2">
                     <div>
                         <label
                             style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                            {{ t['max_price'] }}
+                            {{ t['price'] }} ({{ t['sar'] }})
                         </label>
                         <input type="number" name="price" placeholder="2500000" required class="inp">
                     </div>
@@ -40,7 +81,8 @@
                             style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
                             {{ t['district'] }}
                         </label>
-                        <input type="text" name="district" placeholder="{{ t['district'] }}" required class="inp">
+                        <input type="text" name="district" placeholder="{{ t['location_placeholder'] }}" required
+                            class="inp">
                     </div>
                 </div>
 
@@ -55,11 +97,11 @@
                     </select>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;" class="form-row-3">
                     <div>
                         <label
                             style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                            {{ t['area'] }}
+                            {{ t['area'] }} ({{ t['area'] }})
                         </label>
                         <input type="number" name="area" placeholder="500" required class="inp">
                     </div>
@@ -79,28 +121,11 @@
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                    <div>
-                        <label
-                            style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                            {{ t['age'] }}
-                        </label>
-                        <input type="number" name="age" placeholder="5" class="inp">
-                    </div>
-                    <div>
-                        <label
-                            style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                            {{ t['latitude'] }}
-                        </label>
-                        <input type="number" step="any" name="lat" placeholder="24.7136" required class="inp">
-                    </div>
-                    <div>
-                        <label
-                            style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                            {{ t['longitude'] }}
-                        </label>
-                        <input type="number" step="any" name="lng" placeholder="46.6753" required class="inp">
-                    </div>
+                <div>
+                    <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
+                        {{ t['age'] }} ({{ t['age'] }})
+                    </label>
+                    <input type="number" name="age" placeholder="2" class="inp">
                 </div>
 
                 <div>
@@ -112,14 +137,14 @@
 
                 <div>
                     <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                        {{ t['district'] }}
+                        {{ t['location'] }}
                     </label>
-                    <input type="text" name="location" placeholder="{{ t['district'] }}" class="inp">
+                    <input type="text" name="location" placeholder="{{ t['location_placeholder'] }}" class="inp">
                 </div>
 
                 <div>
                     <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                        <i class="fas fa-image"></i>
+                        <i class="fas fa-image"></i> {{ t['property_image'] }}
                     </label>
                     <div
                         style="background: rgba(255,255,255,0.03); border: 2px dashed var(--glass-border); border-radius: 14px; padding: 30px; text-align: center; transition: 0.3s;">
@@ -129,6 +154,10 @@
                     </div>
                 </div>
 
+                <!-- Hidden inputs for coordinates from map -->
+                <input type="hidden" name="lat" id="lat-input" value="24.7136">
+                <input type="hidden" name="lng" id="lng-input" value="46.6753">
+
                 <button type="submit" class="btn"
                     style="width: 100%; justify-content: center; padding: 18px; font-size: 1.1rem;">
                     <i class="fas fa-rocket"></i>
@@ -136,72 +165,50 @@
                 </button>
             </form>
         </div>
-
-        <!-- Client Requests -->
-        <div class="glass-card animate-in" style="animation-delay: 0.2s;">
-            <h2 style="font-size: 1.4rem; margin-bottom: 30px; display: flex; align-items: center; gap: 12px;">
-                <div
-                    style="width: 45px; height: 45px; background: linear-gradient(135deg, var(--secondary), var(--accent)); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                    <i class="fas fa-bullhorn" style="color: white;"></i>
-                </div>
-                {{ t['client_requests'] }}
-                <span class="badge" style="margin-{{ 'right' if t['dir'] == 'rtl' else 'left' }}: auto;">{{
-                    requests|length }}</span>
-            </h2>
-
-            <div
-                style="max-height: 600px; overflow-y: auto; padding-{{ 'left' if t['dir'] == 'rtl' else 'right' }}: 10px;">
-                {% for r in requests %}
-                <div class="glass-card" style="margin-bottom: 20px; background: rgba(255,255,255,0.02); padding: 25px;">
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
-                        <div>
-                            <span class="badge"
-                                style="background: rgba(124, 58, 237, 0.15); border-color: rgba(124, 58, 237, 0.3); color: var(--secondary);">
-                                {{ r['type'] }}
-                            </span>
-                        </div>
-                        <span style="color: var(--text-muted); font-size: 0.8rem;">
-                            <i class="fas fa-clock"></i> {{ r['date'] }}
-                        </span>
-                    </div>
-
-                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 10px;">
-                        {{ t['district'] }}: <span style="color: var(--primary);">{{ r['district'] }}</span>
-                    </div>
-
-                    <div style="display: flex; gap: 15px; margin-bottom: 15px;">
-                        <span
-                            style="background: rgba(0, 212, 170, 0.1); padding: 8px 15px; border-radius: 8px; font-size: 0.9rem;">
-                            <i class="fas fa-coins" style="color: var(--primary);"></i>
-                            {{ "{:,.0f}".format(r['budget_min']) }} - {{ "{:,.0f}".format(r['budget_max']) }} {{
-                            t['sar'] }}
-                        </span>
-                    </div>
-
-                    {% if r['notes'] %}
-                    <p
-                        style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 10px;">
-                        "{{ r['notes'] }}"
-                    </p>
-                    {% endif %}
-
-                    <a href="tel:{{ r['phone'] }}" class="btn"
-                        style="width: 100%; justify-content: center; padding: 12px;">
-                        <i class="fas fa-phone-alt"></i>
-                        {{ t['contact_owner'] }} - {{ r['user_name'] }}
-                    </a>
-                </div>
-                {% else %}
-                <div style="text-align: center; padding: 50px 20px;">
-                    <i class="fas fa-inbox" style="font-size: 48px; color: var(--text-muted); margin-bottom: 20px;"></i>
-                    <p style="color: var(--text-muted);">{{ t['not_found'] }}</p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
     </div>
 </div>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    // Initialize map centered on Riyadh
+    const map = L.map('map').setView([24.7136, 46.6753], 11);
+
+    // Add tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19
+    }).addTo(map);
+
+    // Add draggable marker
+    let marker = L.marker([24.7136, 46.6753], {
+        draggable: true
+    }).addTo(map);
+
+    // Update coordinates when marker is dragged
+    marker.on('dragend', function (e) {
+        const position = marker.getLatLng();
+        updateCoordinates(position.lat, position.lng);
+    });
+
+    // Add marker on map click
+    map.on('click', function (e) {
+        marker.setLatLng(e.latlng);
+        updateCoordinates(e.latlng.lat, e.latlng.lng);
+    });
+
+    // Function to update displayed and hidden input coordinates
+    function updateCoordinates(lat, lng) {
+        document.getElementById('lat-display').textContent = lat.toFixed(6);
+        document.getElementById('lng-display').textContent = lng.toFixed(6);
+        document.getElementById('lat-input').value = lat.toFixed(6);
+        document.getElementById('lng-input').value = lng.toFixed(6);
+    }
+</script>
 
 <style>
     /* Dashboard responsive */
@@ -242,6 +249,17 @@
         div[style*="grid-template-columns: 1fr 1fr 1fr;"] {
             grid-template-columns: 1fr !important;
         }
+    }
+
+    /* Leaflet popup customization */
+    .leaflet-popup-content-wrapper {
+        background: rgba(20, 20, 30, 0.95);
+        color: var(--text-primary);
+        border-radius: 12px;
+    }
+
+    .leaflet-popup-tip {
+        background: rgba(20, 20, 30, 0.95);
     }
 </style>
 {% endblock %}
