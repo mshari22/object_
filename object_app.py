@@ -351,6 +351,91 @@ def api_estimate_price():
     except Exception as e:
         return {'success': False, 'error': str(e)}, 400
 
+@app.route('/api/properties', methods=['GET'])
+def api_get_properties():
+    """API endpoint to get all properties as JSON"""
+    try:
+        properties = Property.query.all()
+        properties_list = []
+        
+        for prop in properties:
+            properties_list.append({
+                'id': prop.id,
+                'title': prop.title,
+                'price': prop.price,
+                'location': prop.location,
+                'district': prop.district,
+                'type': prop.type,
+                'area': prop.area,
+                'rooms': prop.rooms,
+                'bathrooms': prop.bathrooms,
+                'age': prop.age,
+                'furnished': prop.furnished,
+                'description': prop.description,
+                'latitude': prop.latitude,
+                'longitude': prop.longitude,
+                'image_path': prop.image_path,
+                'views': prop.views,
+                'owner_id': prop.owner_id
+            })
+        
+        return {
+            'success': True,
+            'count': len(properties_list),
+            'properties': properties_list
+        }
+    except Exception as e:
+        return {'success': False, 'error': str(e)}, 500
+
+@app.route('/api/add_property', methods=['POST'])
+def api_add_property():
+    """API endpoint to add a new property to the database"""
+    try:
+        data = request.get_json()
+        
+        # Validate required fields
+        if not data.get('title') or not data.get('price'):
+            return {
+                'success': False,
+                'error': 'Missing required fields: title and price are required'
+            }, 400
+        
+        # Create new property
+        new_property = Property(
+            title=data.get('title'),
+            price=float(data.get('price')),
+            location=data.get('location'),
+            district=data.get('district'),
+            type=data.get('type', 'villa'),
+            area=float(data.get('area', 0) or 0),
+            rooms=int(data.get('rooms', 0) or 0),
+            bathrooms=int(data.get('bathrooms', 0) or 0),
+            age=int(data.get('age', 0) or 0),
+            furnished=data.get('furnished', 'no'),
+            description=data.get('description'),
+            latitude=float(data.get('latitude', 0) or 0),
+            longitude=float(data.get('longitude', 0) or 0),
+            image_path=data.get('image_path'),
+            owner_id=data.get('owner_id', 1)
+        )
+        
+        db.session.add(new_property)
+        db.session.commit()
+        
+        return {
+            'success': True,
+            'message': 'Property added successfully',
+            'property': {
+                'id': new_property.id,
+                'title': new_property.title,
+                'price': new_property.price,
+                'location': new_property.location
+            }
+        }, 201
+    except Exception as e:
+        db.session.rollback()
+        return {'success': False, 'error': str(e)}, 500
+
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
