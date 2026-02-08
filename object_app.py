@@ -260,32 +260,46 @@ def property_details(id):
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if request.method == 'POST':
-        file = request.files.get('image')
-        filename = None
-        if file and file.filename:
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        
-        new_property = Property(
-            title=request.form['title'],
-            price=float(request.form['price']),
-            location=request.form.get('location'),
-            district=request.form.get('district'),
-            type=request.form.get('type'),
-            area=float(request.form.get('area', 0) or 0),
-            rooms=int(request.form.get('rooms', 0) or 0),
-            bathrooms=int(request.form.get('bathrooms', 0) or 0),
-            age=int(request.form.get('age', 0) or 0),
-            furnished=request.form.get('furnished', 'no'),
-            description=request.form.get('description'),
-            latitude=float(request.form.get('lat', 0) or 0),
-            longitude=float(request.form.get('lng', 0) or 0),
-            image_path=filename,
-            owner_id=session.get('user_id', 1)
-        )
-        db.session.add(new_property)
-        db.session.commit()
-        return redirect(url_for('dashboard'))
+        try:
+            file = request.files.get('image')
+            filename = None
+            if file and file.filename:
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            
+            new_property = Property(
+                title=request.form['title'],
+                price=float(request.form['price']),
+                location=request.form.get('location'),
+                district=request.form.get('district'),
+                type=request.form.get('type'),
+                area=float(request.form.get('area', 0) or 0),
+                rooms=int(request.form.get('rooms', 0) or 0),
+                bathrooms=int(request.form.get('bathrooms', 0) or 0),
+                age=int(request.form.get('age', 0) or 0),
+                furnished=request.form.get('furnished', 'no'),
+                description=request.form.get('description'),
+                latitude=float(request.form.get('lat', 0) or 0),
+                longitude=float(request.form.get('lng', 0) or 0),
+                image_path=filename,
+                owner_id=session.get('user_id', 1)
+            )
+            db.session.add(new_property)
+            db.session.commit()
+            flash('Property added successfully!', 'success')
+            return redirect(url_for('dashboard'))
+        except Exception as e:
+            import traceback
+            error_details = traceback.format_exc()
+            print("=" * 80)
+            print("ERROR ADDING PROPERTY:")
+            print(error_details)
+            print("Form data:", dict(request.form))
+            print("Files:", dict(request.files))
+            print("=" * 80)
+            db.session.rollback()
+            flash(f'Error adding property: {str(e)}', 'error')
+            return redirect(url_for('dashboard'))
     
     properties = Property.query.all()
     requests_list = Request.query.order_by(Request.date.desc()).all()
@@ -402,4 +416,4 @@ with app.app_context():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 10000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=True)
