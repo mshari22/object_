@@ -8,23 +8,23 @@
             <i class="fas fa-paper-plane" style="font-size: 32px; color: white;"></i>
         </div>
 
-        <h1 class="section-title" style="margin-bottom: 15px;">ما لقيت اللي في بالك؟</h1>
+        <h1 class="section-title" style="margin-bottom: 15px;">{{ t['not_found'] }}</h1>
         <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 40px; line-height: 1.8;">
-            املأ النموذج، وسنقوم بإرسال طلبك لكل المكاتب العقارية في الرياض فوراً.
+            {{ t['request_property'] }}
         </p>
 
         <!-- Form -->
-        <form method="POST" style="text-align: right; display: flex; flex-direction: column; gap: 20px;">
+        <form method="POST" style="text-align: {{ t['align'] }}; display: flex; flex-direction: column; gap: 20px;">
             <div>
                 <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                    <i class="fas fa-user"></i> الاسم الكريم
+                    <i class="fas fa-user"></i> {{ t['name'] }}
                 </label>
-                <input type="text" name="name" placeholder="أدخل اسمك" required class="inp">
+                <input type="text" name="name" placeholder="{{ t['name'] }}" required class="inp">
             </div>
 
             <div>
                 <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                    <i class="fas fa-phone"></i> رقم الجوال
+                    <i class="fas fa-phone"></i> {{ t['phone'] }}
                 </label>
                 <input type="tel" name="phone" placeholder="05XXXXXXXX" required class="inp">
             </div>
@@ -32,13 +32,13 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                 <div>
                     <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                        <i class="fas fa-coins"></i> أقل سعر
+                        <i class="fas fa-coins"></i> {{ t['min_price'] }}
                     </label>
                     <input type="number" name="min" placeholder="500000" class="inp">
                 </div>
                 <div>
                     <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                        <i class="fas fa-coins"></i> أقصى سعر
+                        <i class="fas fa-coins"></i> {{ t['max_price'] }}
                     </label>
                     <input type="number" name="max" placeholder="2000000" class="inp">
                 </div>
@@ -46,53 +46,35 @@
 
             <div>
                 <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                    <i class="fas fa-map-marker-alt"></i> الحي المفضل
+                    <i class="fas fa-map-marker-alt"></i> {{ t['district'] }}
                 </label>
-                <input type="text" name="district" placeholder="مثال: الملقا، النرجس، الياسمين" required class="inp">
+                <input type="text" name="district" placeholder="{{ t['district'] }}" required class="inp">
             </div>
 
             <div>
                 <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                    <i class="fas fa-home"></i> نوع العقار
+                    <i class="fas fa-home"></i> {{ t['property_type'] }}
                 </label>
                 <select name="type" class="inp">
-                    <option value="فيلا">فيلا</option>
-                    <option value="شقة">شقة</option>
-                    <option value="أرض">أرض</option>
+                    <option value="villa">{{ t['villa'] }}</option>
+                    <option value="apartment">{{ t['apartment'] }}</option>
+                    <option value="land">{{ t['land'] }}</option>
                 </select>
             </div>
 
             <div>
                 <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                    <i class="fas fa-comment-alt"></i> ملاحظات إضافية
+                    <i class="fas fa-comment-alt"></i> {{ t['notes'] }}
                 </label>
-                <textarea name="notes" placeholder="مثلاً: واجهة شمالية، قرب مسجد، موقف سيارات..." rows="4"
-                    class="inp"></textarea>
+                <textarea name="notes" placeholder="{{ t['notes'] }}" rows="4" class="inp"></textarea>
             </div>
 
             <button type="submit" class="btn"
                 style="width: 100%; justify-content: center; padding: 18px; font-size: 1.1rem; margin-top: 10px;">
                 <i class="fas fa-rocket"></i>
-                إرسال الطلب للمكاتب
+                {{ t['send_request'] }}
             </button>
         </form>
-
-        <!-- Trust Indicators -->
-        <div
-            style="display: flex; justify-content: center; gap: 30px; margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--glass-border);">
-            <div style="text-align: center;">
-                <i class="fas fa-shield-alt" style="font-size: 24px; color: var(--primary); margin-bottom: 8px;"></i>
-                <div style="color: var(--text-muted); font-size: 0.85rem;">بياناتك آمنة</div>
-            </div>
-            <div style="text-align: center;">
-                <i class="fas fa-bolt" style="font-size: 24px; color: var(--secondary); margin-bottom: 8px;"></i>
-                <div style="color: var(--text-muted); font-size: 0.85rem;">رد سريع</div>
-            </div>
-            <div style="text-align: center;">
-                <i class="fas fa-users" style="font-size: 24px; color: var(--accent); margin-bottom: 8px;"></i>
-                <div style="color: var(--text-muted); font-size: 0.85rem;">+50 مكتب</div>
-            </div>
-        </div>
     </div>
 </div>
 {% endblock %}

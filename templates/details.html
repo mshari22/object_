@@ -23,13 +23,13 @@
                 <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
                     <span class="badge">{{ p['type'] }}</span>
                     <span style="color: var(--text-muted); font-size: 0.9rem;">
-                        <i class="fas fa-eye"></i> {{ p['views'] }} مشاهدة
+                        <i class="fas fa-eye"></i> {{ p['views'] }} {{ t['views'] }}
                     </span>
                 </div>
                 <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 15px;">{{ p['title'] }}</h1>
                 <h2
                     style="font-size: 2rem; font-weight: 800; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                    {{ "{:,.0f}".format(p['price']) }} ريال
+                    {{ "{:,.0f}".format(p['price']) }} {{ t['sar'] }}
                 </h2>
             </div>
 
@@ -40,24 +40,24 @@
                         <i class="fas fa-ruler-combined"
                             style="font-size: 24px; color: var(--primary); margin-bottom: 10px;"></i>
                         <div style="font-size: 1.3rem; font-weight: 700;">{{ p['area'] }}</div>
-                        <div style="color: var(--text-muted); font-size: 0.85rem;">م²</div>
+                        <div style="color: var(--text-muted); font-size: 0.85rem;">{{ t['area'] }}</div>
                     </div>
                     <div>
                         <i class="fas fa-bed"
                             style="font-size: 24px; color: var(--secondary); margin-bottom: 10px;"></i>
                         <div style="font-size: 1.3rem; font-weight: 700;">{{ p['rooms'] }}</div>
-                        <div style="color: var(--text-muted); font-size: 0.85rem;">غرف</div>
+                        <div style="color: var(--text-muted); font-size: 0.85rem;">{{ t['rooms'] }}</div>
                     </div>
                     <div>
                         <i class="fas fa-bath" style="font-size: 24px; color: var(--accent); margin-bottom: 10px;"></i>
                         <div style="font-size: 1.3rem; font-weight: 700;">{{ p['bathrooms'] }}</div>
-                        <div style="color: var(--text-muted); font-size: 0.85rem;">حمام</div>
+                        <div style="color: var(--text-muted); font-size: 0.85rem;">{{ t['bathrooms'] }}</div>
                     </div>
                     <div>
                         <i class="fas fa-clock"
                             style="font-size: 24px; color: var(--primary); margin-bottom: 10px;"></i>
                         <div style="font-size: 1.3rem; font-weight: 700;">{{ p['age'] }}</div>
-                        <div style="color: var(--text-muted); font-size: 0.85rem;">سنة</div>
+                        <div style="color: var(--text-muted); font-size: 0.85rem;">{{ t['age'] }}</div>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
             <div class="glass-card animate-in" style="animation-delay: 0.3s; margin-bottom: 30px;">
                 <h3 style="font-size: 1.3rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
                     <i class="fas fa-file-alt" style="color: var(--primary);"></i>
-                    تفاصيل العقار
+                    {{ t['property_details'] }}
                 </h3>
                 <p style="color: var(--text-secondary); line-height: 2; font-size: 1.05rem;">{{ p['description'] }}</p>
             </div>
@@ -75,26 +75,26 @@
             <div class="glass-card animate-in" style="animation-delay: 0.4s;">
                 <h3 style="font-size: 1.3rem; margin-bottom: 25px; display: flex; align-items: center; gap: 10px;">
                     <i class="fas fa-chart-bar" style="color: var(--secondary);"></i>
-                    تقييم حي {{ p['district'] }}
+                    {{ t['district'] }}: {{ p['district'] }}
                 </h3>
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
                     <div class="glass-card"
                         style="text-align: center; padding: 20px; background: rgba(0, 212, 170, 0.05); border-color: rgba(0, 212, 170, 0.2);">
                         <div style="font-size: 28px; margin-bottom: 10px;">🛡️</div>
-                        <div style="font-weight: 600; margin-bottom: 5px;">الأمان</div>
+                        <div style="font-weight: 600; margin-bottom: 5px;"></div>
                         <div style="color: var(--primary);">⭐⭐⭐⭐⭐</div>
                     </div>
                     <div class="glass-card"
                         style="text-align: center; padding: 20px; background: rgba(124, 58, 237, 0.05); border-color: rgba(124, 58, 237, 0.2);">
                         <div style="font-size: 28px; margin-bottom: 10px;">💰</div>
-                        <div style="font-weight: 600; margin-bottom: 5px;">مؤشر السعر</div>
-                        <div style="color: var(--secondary);">📈 مرتفع</div>
+                        <div style="font-weight: 600; margin-bottom: 5px;"></div>
+                        <div style="color: var(--secondary);">📈</div>
                     </div>
                     <div class="glass-card"
                         style="text-align: center; padding: 20px; background: rgba(244, 114, 182, 0.05); border-color: rgba(244, 114, 182, 0.2);">
                         <div style="font-size: 28px; margin-bottom: 10px;">🏫</div>
-                        <div style="font-weight: 600; margin-bottom: 5px;">الخدمات</div>
-                        <div style="color: var(--accent);">متكامل</div>
+                        <div style="font-weight: 600; margin-bottom: 5px;"></div>
+                        <div style="color: var(--accent);"></div>
                     </div>
                 </div>
             </div>
@@ -107,16 +107,16 @@
                 style="animation-delay: 0.2s; margin-bottom: 25px; position: sticky; top: 100px;">
                 <h3 style="font-size: 1.2rem; margin-bottom: 25px; display: flex; align-items: center; gap: 10px;">
                     <i class="fas fa-phone-alt" style="color: var(--primary);"></i>
-                    تواصل مع المالك
+                    {{ t['contact_owner'] }}
                 </h3>
                 <a href="https://wa.me/966590192582" class="btn"
                     style="width: 100%; justify-content: center; margin-bottom: 15px; background: linear-gradient(135deg, #25D366, #128C7E); box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);">
                     <i class="fab fa-whatsapp" style="font-size: 20px;"></i>
-                    تواصل واتساب
+                    {{ t['whatsapp'] }}
                 </a>
                 <button class="btn btn-secondary" style="width: 100%; justify-content: center;">
                     <i class="fas fa-calendar-alt"></i>
-                    احجز زيارة
+                    {{ t['book_visit'] }}
                 </button>
             </div>
 
@@ -125,23 +125,23 @@
                 style="animation-delay: 0.3s; margin-bottom: 25px; background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(0, 212, 170, 0.05));">
                 <h3 style="font-size: 1.2rem; margin-bottom: 25px; display: flex; align-items: center; gap: 10px;">
                     <i class="fas fa-calculator" style="color: var(--secondary);"></i>
-                    حاسبة التمويل
+                    {{ t['finance_calc'] }}
                 </h3>
                 <div style="margin-bottom: 20px;">
-                    <label
-                        style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">الراتب
-                        الشهري</label>
-                    <input type="number" id="salary" placeholder="مثال: 15000" class="inp">
+                    <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
+                        {{ t['salary'] }}
+                    </label>
+                    <input type="number" id="salary" placeholder="15000" class="inp">
                 </div>
                 <div style="margin-bottom: 20px;">
-                    <label
-                        style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">الدفعة
-                        الأولى</label>
-                    <input type="number" id="downpayment" placeholder="مثال: 100000" class="inp">
+                    <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
+                        {{ t['downpayment'] }}
+                    </label>
+                    <input type="number" id="downpayment" placeholder="100000" class="inp">
                 </div>
                 <button onclick="calculate()" class="btn" style="width: 100%; justify-content: center;">
                     <i class="fas fa-coins"></i>
-                    احسب القسط
+                    {{ t['calculate'] }}
                 </button>
                 <div id="result"
                     style="margin-top: 20px; padding: 20px; background: rgba(0, 212, 170, 0.1); border-radius: 12px; text-align: center; font-weight: 700; display: none;">
@@ -221,7 +221,7 @@
     resultDiv.style.display = 'block';
 
     if (!salary) {
-        resultDiv.innerHTML = '<span style="color: var(--accent);">يرجى إدخال الراتب</span>';
+        resultDiv.innerHTML = '<span style="color: var(--accent);">{{ t["salary"] }}</span>';
         return;
     }
 
@@ -232,9 +232,9 @@
     var emi = loanAmount * monthlyRate * (Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
 
     if (emi > maxInstallment) {
-        resultDiv.innerHTML = '<span style="color: var(--accent);">القسط المتوقع: ' + emi.toFixed(0) + ' ريال<br><small style="font-weight: 400;">عالي جداً على راتبك</small></span>';
+        resultDiv.innerHTML = '<span style="color: var(--accent);">' + emi.toFixed(0) + ' {{ t["sar"] }}</span>';
     } else {
-        resultDiv.innerHTML = '<span style="color: var(--primary);">القسط الشهري: ' + emi.toFixed(0) + ' ريال<br><small style="font-weight: 400;">✓ مناسب لراتبك</small></span>';
+        resultDiv.innerHTML = '<span style="color: var(--primary);">' + emi.toFixed(0) + ' {{ t["sar"] }}</span>';
     }
     }
 </script>

@@ -14,24 +14,23 @@
     <!-- Badge -->
     <div class="badge animate-in" style="margin-bottom: 30px; animation-delay: 0.1s;">
         <i class="fas fa-sparkles"></i>
-        أذكى منصة عقارية في الرياض
+        {{ t['hero_desc'] }}
     </div>
 
     <!-- Main Title -->
     <h1 class="animate-in"
         style="font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; margin-bottom: 25px; line-height: 1.2; animation-delay: 0.2s;">
         <span
-            style="background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">مستقبل
-            العقار</span>
+            style="background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">{{
+            t['hero_title'] }}</span>
         <br>
-        <span style="color: var(--text-primary);">في الرياض</span>
+        <span style="color: var(--text-primary);">{{ t['hero_subtitle'] }}</span>
     </h1>
 
     <!-- Subtitle -->
     <p class="animate-in"
         style="font-size: 1.3rem; color: var(--text-secondary); max-width: 600px; margin-bottom: 50px; line-height: 1.8; animation-delay: 0.3s;">
-        اكتشف منزلك الجديد باستخدام أذكى تقنيات البحث العقاري.
-        نربطك بأفضل الفرص العقارية في جميع أحياء الرياض.
+        {{ t['hero_desc'] }}
     </p>
 
     <!-- CTA Buttons -->
@@ -39,29 +38,31 @@
         style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; animation-delay: 0.4s;">
         <a href="/browse" class="btn" style="padding: 18px 45px; font-size: 1.1rem; border-radius: 50px;">
             <i class="fas fa-search"></i>
-            تصفح السوق الآن
+            {{ t['browse_now'] }}
         </a>
         <a href="/request_property" class="btn btn-secondary"
             style="padding: 18px 45px; font-size: 1.1rem; border-radius: 50px;">
             <i class="fas fa-paper-plane"></i>
-            اطلب عقارك
+            {{ t['request_property'] }}
         </a>
     </div>
 
     <!-- Stats Section -->
     <div class="glass-card animate-in"
         style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 80px; padding: 0; overflow: hidden; max-width: 700px; width: 100%; animation-delay: 0.5s;">
-        <div class="stat-box" style="border-left: 1px solid var(--glass-border);">
+        <div class="stat-box"
+            style="border-{{ 'left' if t['dir'] == 'rtl' else 'right' }}: 1px solid var(--glass-border);">
             <div class="stat-number">500+</div>
-            <div class="stat-label">عقار متاح</div>
+            <div class="stat-label">{{ t['properties'] }}</div>
         </div>
-        <div class="stat-box" style="border-left: 1px solid var(--glass-border);">
+        <div class="stat-box"
+            style="border-{{ 'left' if t['dir'] == 'rtl' else 'right' }}: 1px solid var(--glass-border);">
             <div class="stat-number">50+</div>
-            <div class="stat-label">حي في الرياض</div>
+            <div class="stat-label">{{ t['districts'] }}</div>
         </div>
         <div class="stat-box">
             <div class="stat-number">1000+</div>
-            <div class="stat-label">عميل سعيد</div>
+            <div class="stat-label">{{ t['clients'] }}</div>
         </div>
     </div>
 </div>
@@ -69,27 +70,18 @@
 <!-- Features Section -->
 <div class="container">
     <div style="text-align: center; margin-bottom: 60px;">
-        <h2 class="section-title">لماذا OBJECT؟</h2>
-        <p class="section-subtitle">نقدم تجربة عقارية لا مثيل لها</p>
+        <h2 class="section-title">{{ t['why_object'] }}</h2>
+        <p class="section-subtitle">{{ t['why_desc'] }}</p>
     </div>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
         <div class="glass-card" style="text-align: center;">
             <div
                 style="width: 70px; height: 70px; background: var(--gradient-2); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; border: 1px solid var(--glass-border);">
-                <i class="fas fa-search-location" style="font-size: 28px; color: var(--primary);"></i>
-            </div>
-            <h3 style="font-size: 1.3rem; margin-bottom: 12px;">بحث ذكي</h3>
-            <p style="color: var(--text-muted); line-height: 1.7;">فلترة متقدمة حسب الحي، النوع، السعر والمواصفات</p>
-        </div>
-
-        <div class="glass-card" style="text-align: center;">
-            <div
-                style="width: 70px; height: 70px; background: var(--gradient-2); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; border: 1px solid var(--glass-border);">
                 <i class="fas fa-map-marked-alt" style="font-size: 28px; color: var(--secondary);"></i>
             </div>
-            <h3 style="font-size: 1.3rem; margin-bottom: 12px;">خرائط تفاعلية</h3>
-            <p style="color: var(--text-muted); line-height: 1.7;">شاهد موقع العقار بدقة على الخريطة</p>
+            <h3 style="font-size: 1.3rem; margin-bottom: 12px;">{{ t['maps'] }}</h3>
+            <p style="color: var(--text-muted); line-height: 1.7;">{{ t['maps_desc'] }}</p>
         </div>
 
         <div class="glass-card" style="text-align: center;">
@@ -97,8 +89,8 @@
                 style="width: 70px; height: 70px; background: var(--gradient-2); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; border: 1px solid var(--glass-border);">
                 <i class="fas fa-calculator" style="font-size: 28px; color: var(--accent);"></i>
             </div>
-            <h3 style="font-size: 1.3rem; margin-bottom: 12px;">حاسبة التمويل</h3>
-            <p style="color: var(--text-muted); line-height: 1.7;">احسب القسط الشهري بناءً على راتبك</p>
+            <h3 style="font-size: 1.3rem; margin-bottom: 12px;">{{ t['calculator'] }}</h3>
+            <p style="color: var(--text-muted); line-height: 1.7;">{{ t['calculator_desc'] }}</p>
         </div>
     </div>
 </div>

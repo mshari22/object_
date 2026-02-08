@@ -3,8 +3,8 @@
 <div class="container">
     <!-- Page Header -->
     <div style="text-align: center; margin-bottom: 50px;" class="animate-in">
-        <h1 class="section-title">سوق العقارات</h1>
-        <p class="section-subtitle">اكتشف أفضل العقارات المتاحة في الرياض</p>
+        <h1 class="section-title">{{ t['browse'] }}</h1>
+        <p class="section-subtitle">{{ t['hero_desc'] }}</p>
     </div>
 
     <!-- Search Filter -->
@@ -12,30 +12,30 @@
         <form action="/browse" method="GET" style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
             <div style="flex: 2; min-width: 200px;">
                 <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                    <i class="fas fa-map-marker-alt"></i> الحي
+                    <i class="fas fa-map-marker-alt"></i> {{ t['district'] }}
                 </label>
-                <input type="text" name="district" placeholder="ابحث باسم الحي (مثال: الملقا)" class="inp">
+                <input type="text" name="district" placeholder="{{ t['district'] }}" class="inp">
             </div>
             <div style="flex: 1; min-width: 150px;">
                 <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                    <i class="fas fa-home"></i> نوع العقار
+                    <i class="fas fa-home"></i> {{ t['property_type'] }}
                 </label>
                 <select name="type" class="inp">
-                    <option value="">جميع الأنواع</option>
-                    <option value="فيلا">فيلا</option>
-                    <option value="شقة">شقة</option>
-                    <option value="أرض">أرض</option>
+                    <option value="">{{ t['all_types'] }}</option>
+                    <option value="villa">{{ t['villa'] }}</option>
+                    <option value="apartment">{{ t['apartment'] }}</option>
+                    <option value="land">{{ t['land'] }}</option>
                 </select>
             </div>
             <div style="flex: 1; min-width: 150px;">
                 <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                    <i class="fas fa-coins"></i> الحد الأقصى للسعر
+                    <i class="fas fa-coins"></i> {{ t['max_price'] }}
                 </label>
-                <input type="number" name="price_max" placeholder="مثال: 2000000" class="inp">
+                <input type="number" name="price_max" placeholder="2000000" class="inp">
             </div>
             <button type="submit" class="btn" style="min-width: 120px; justify-content: center;">
                 <i class="fas fa-search"></i>
-                بحث
+                {{ t['search'] }}
             </button>
         </form>
     </div>
@@ -55,7 +55,8 @@
                         <i class="fas fa-home" style="font-size: 48px; color: var(--primary);"></i>
                     </div>
                     {% endif %}
-                    <div style="position: absolute; top: 15px; right: 15px; z-index: 2;">
+                    <div
+                        style="position: absolute; top: 15px; {{ 'right' if t['dir'] == 'rtl' else 'left' }}: 15px; z-index: 2;">
                         <span class="badge">{{ p['type'] }}</span>
                     </div>
                 </div>
@@ -63,7 +64,7 @@
                     <h3 class="property-title">{{ p['title'] }}</h3>
                     <div
                         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-                        <span class="property-price">{{ "{:,.0f}".format(p['price']) }} ريال</span>
+                        <span class="property-price">{{ "{:,.0f}".format(p['price']) }} {{ t['sar'] }}</span>
                     </div>
                     <div class="property-location">
                         <i class="fas fa-map-marker-alt"></i>
@@ -71,10 +72,10 @@
                     </div>
                     <div class="property-features">
                         <span class="property-feature">
-                            <i class="fas fa-bed"></i> {{ p['rooms'] }} غرف
+                            <i class="fas fa-bed"></i> {{ p['rooms'] }} {{ t['rooms'] }}
                         </span>
                         <span class="property-feature">
-                            <i class="fas fa-ruler-combined"></i> {{ p['area'] }} م²
+                            <i class="fas fa-ruler-combined"></i> {{ p['area'] }} {{ t['area'] }}
                         </span>
                         <span class="property-feature">
                             <i class="fas fa-eye"></i> {{ p['views'] }}
@@ -86,8 +87,7 @@
         {% else %}
         <div class="glass-card" style="grid-column: 1 / -1; text-align: center; padding: 60px;">
             <i class="fas fa-search" style="font-size: 48px; color: var(--text-muted); margin-bottom: 20px;"></i>
-            <h3 style="color: var(--text-secondary); margin-bottom: 10px;">لا توجد عقارات حالياً</h3>
-            <p style="color: var(--text-muted);">جرب تعديل معايير البحث أو تصفح جميع العقارات</p>
+            <h3 style="color: var(--text-secondary); margin-bottom: 10px;">{{ t['not_found'] }}</h3>
         </div>
         {% endfor %}
     </div>

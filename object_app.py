@@ -22,7 +22,7 @@ TRANSLATIONS = {
         'hero_desc': 'اكتشف منزلك الجديد باستخدام أذكى تقنيات البحث العقاري.',
         'browse_now': 'تصفح السوق الآن', 'request_property': 'اطلب عقارك',
         'why_object': 'لماذا OBJECT؟', 'why_desc': 'نقدم تجربة عقارية لا مثيل لها',
-        'smart_search': 'بحث ذكي', 'smart_search_desc': 'فلترة متقدمة حسب الحي والنوع والسعر',
+
         'maps': 'خرائط تفاعلية', 'maps_desc': 'شاهد موقع العقار بدقة على الخريطة',
         'calculator': 'حاسبة التمويل', 'calculator_desc': 'احسب القسط الشهري بناءً على راتبك',
         'properties': 'عقار متاح', 'districts': 'حي في الرياض', 'clients': 'عميل سعيد',
@@ -35,7 +35,10 @@ TRANSLATIONS = {
         'add_property': 'إضافة عقار جديد', 'client_requests': 'طلبات الباحثين عن عقار',
         'publish': 'نشر العقار', 'name': 'الاسم', 'phone': 'رقم الجوال', 'notes': 'ملاحظات',
         'send_request': 'إرسال الطلب', 'not_found': 'ما لقيت اللي في بالك؟',
-        'lang_name': 'العربية', 'bathrooms': 'حمام', 'age': 'عمر العقار'
+        'lang_name': 'العربية', 'bathrooms': 'حمام', 'age': 'عمر العقار',
+        'email': 'البريد الإلكتروني', 'password': 'كلمة المرور', 'min_price': 'الحد الأدنى للسعر',
+        'latitude': 'خط العرض', 'longitude': 'خط الطول',
+        'footer_desc': 'مستقبل العقار في الرياض'
     },
     'en': {
         'title': 'OBJECT', 'dir': 'ltr', 'align': 'left', 'font': 'Inter',
@@ -45,7 +48,7 @@ TRANSLATIONS = {
         'hero_desc': 'Discover your new home using the smartest real estate search technology.',
         'browse_now': 'Browse Now', 'request_property': 'Request Property',
         'why_object': 'Why OBJECT?', 'why_desc': 'We offer an unparalleled real estate experience',
-        'smart_search': 'Smart Search', 'smart_search_desc': 'Advanced filtering by district, type, and price',
+
         'maps': 'Interactive Maps', 'maps_desc': 'View property location precisely on the map',
         'calculator': 'Finance Calculator', 'calculator_desc': 'Calculate monthly payment based on your salary',
         'properties': 'Available Properties', 'districts': 'Districts in Riyadh', 'clients': 'Happy Clients',
@@ -58,7 +61,10 @@ TRANSLATIONS = {
         'add_property': 'Add New Property', 'client_requests': 'Client Requests',
         'publish': 'Publish Property', 'name': 'Name', 'phone': 'Phone', 'notes': 'Notes',
         'send_request': 'Send Request', 'not_found': "Didn't find what you're looking for?",
-        'lang_name': 'English', 'bathrooms': 'Bathrooms', 'age': 'Property Age'
+        'lang_name': 'English', 'bathrooms': 'Bathrooms', 'age': 'Property Age',
+        'email': 'Email', 'password': 'Password', 'min_price': 'Min Price',
+        'latitude': 'Latitude', 'longitude': 'Longitude',
+        'footer_desc': 'The Future of Real Estate in Riyadh'
     },
     'fr': {
         'title': 'OBJECT', 'dir': 'ltr', 'align': 'left', 'font': 'Inter',
@@ -68,7 +74,7 @@ TRANSLATIONS = {
         'hero_desc': 'Découvrez votre nouvelle maison avec la technologie de recherche immobilière la plus intelligente.',
         'browse_now': 'Parcourir', 'request_property': 'Demander un bien',
         'why_object': 'Pourquoi OBJECT?', 'why_desc': 'Nous offrons une expérience immobilière inégalée',
-        'smart_search': 'Recherche intelligente', 'smart_search_desc': 'Filtrage avancé par quartier, type et prix',
+
         'maps': 'Cartes interactives', 'maps_desc': 'Voir la localisation précise sur la carte',
         'calculator': 'Calculateur', 'calculator_desc': 'Calculez le paiement mensuel',
         'properties': 'Propriétés disponibles', 'districts': 'Quartiers à Riyad', 'clients': 'Clients satisfaits',
@@ -81,7 +87,10 @@ TRANSLATIONS = {
         'add_property': 'Ajouter un bien', 'client_requests': 'Demandes clients',
         'publish': 'Publier', 'name': 'Nom', 'phone': 'Téléphone', 'notes': 'Notes',
         'send_request': 'Envoyer', 'not_found': "Vous n'avez pas trouvé ce que vous cherchez?",
-        'lang_name': 'Français', 'bathrooms': 'Salles de bain', 'age': 'Âge du bien'
+        'lang_name': 'Français', 'bathrooms': 'Salles de bain', 'age': 'Âge du bien',
+        'email': 'Email', 'password': 'Mot de passe', 'min_price': 'Prix min',
+        'latitude': 'Latitude', 'longitude': 'Longitude',
+        'footer_desc': "L'avenir de l'immobilier à Riyad"
     },
     'es': {
         'title': 'OBJECT', 'dir': 'ltr', 'align': 'left', 'font': 'Inter',
@@ -91,7 +100,7 @@ TRANSLATIONS = {
         'hero_desc': 'Descubre tu nuevo hogar con la tecnología de búsqueda inmobiliaria más inteligente.',
         'browse_now': 'Explorar ahora', 'request_property': 'Solicitar propiedad',
         'why_object': '¿Por qué OBJECT?', 'why_desc': 'Ofrecemos una experiencia inmobiliaria sin igual',
-        'smart_search': 'Búsqueda inteligente', 'smart_search_desc': 'Filtrado avanzado por zona, tipo y precio',
+
         'maps': 'Mapas interactivos', 'maps_desc': 'Ver ubicación exacta en el mapa',
         'calculator': 'Calculadora', 'calculator_desc': 'Calcula tu cuota mensual',
         'properties': 'Propiedades disponibles', 'districts': 'Zonas en Riad', 'clients': 'Clientes felices',
@@ -104,7 +113,10 @@ TRANSLATIONS = {
         'add_property': 'Añadir propiedad', 'client_requests': 'Solicitudes de clientes',
         'publish': 'Publicar', 'name': 'Nombre', 'phone': 'Teléfono', 'notes': 'Notas',
         'send_request': 'Enviar', 'not_found': '¿No encontraste lo que buscas?',
-        'lang_name': 'Español', 'bathrooms': 'Baños', 'age': 'Antigüedad'
+        'lang_name': 'Español', 'bathrooms': 'Baños', 'age': 'Antigüedad',
+        'email': 'Correo electrónico', 'password': 'Contraseña', 'min_price': 'Precio mín',
+        'latitude': 'Latitud', 'longitude': 'Longitud',
+        'footer_desc': 'El futuro inmobiliario en Riad'
     },
     'zh': {
         'title': 'OBJECT', 'dir': 'ltr', 'align': 'left', 'font': 'Noto Sans SC',
@@ -114,7 +126,7 @@ TRANSLATIONS = {
         'hero_desc': '使用最智能的房地产搜索技术发现您的新家。',
         'browse_now': '立即浏览', 'request_property': '请求房产',
         'why_object': '为什么选择 OBJECT?', 'why_desc': '我们提供无与伦比的房地产体验',
-        'smart_search': '智能搜索', 'smart_search_desc': '按区域、类型和价格高级筛选',
+
         'maps': '互动地图', 'maps_desc': '在地图上精确查看房产位置',
         'calculator': '贷款计算器', 'calculator_desc': '根据您的工资计算月供',
         'properties': '可用房产', 'districts': '利雅得区域', 'clients': '满意客户',
@@ -127,7 +139,10 @@ TRANSLATIONS = {
         'add_property': '添加房产', 'client_requests': '客户请求',
         'publish': '发布', 'name': '姓名', 'phone': '电话', 'notes': '备注',
         'send_request': '发送请求', 'not_found': '没有找到您想要的？',
-        'lang_name': '中文', 'bathrooms': '浴室', 'age': '房龄'
+        'lang_name': '中文', 'bathrooms': '浴室', 'age': '房龄',
+        'email': '电子邮件', 'password': '密码', 'min_price': '最低价格',
+        'latitude': '纬度', 'longitude': '经度',
+        'footer_desc': '利雅得房地产的未来'
     },
     'hi': {
         'title': 'OBJECT', 'dir': 'ltr', 'align': 'left', 'font': 'Noto Sans Devanagari',
@@ -137,7 +152,7 @@ TRANSLATIONS = {
         'hero_desc': 'सबसे स्मार्ट रियल एस्टेट सर्च तकनीक से अपना नया घर खोजें।',
         'browse_now': 'अभी ब्राउज़ करें', 'request_property': 'संपत्ति का अनुरोध करें',
         'why_object': 'OBJECT क्यों?', 'why_desc': 'हम एक अद्वितीय रियल एस्टेट अनुभव प्रदान करते हैं',
-        'smart_search': 'स्मार्ट सर्च', 'smart_search_desc': 'क्षेत्र, प्रकार और कीमत के अनुसार फ़िल्टर',
+
         'maps': 'इंटरैक्टिव मैप्स', 'maps_desc': 'मानचित्र पर सटीक स्थान देखें',
         'calculator': 'EMI कैलकुलेटर', 'calculator_desc': 'अपनी सैलरी के आधार पर EMI की गणना करें',
         'properties': 'उपलब्ध संपत्तियाँ', 'districts': 'रियाद में क्षेत्र', 'clients': 'खुश ग्राहक',
@@ -150,7 +165,10 @@ TRANSLATIONS = {
         'add_property': 'संपत्ति जोड़ें', 'client_requests': 'ग्राहक अनुरोध',
         'publish': 'प्रकाशित करें', 'name': 'नाम', 'phone': 'फ़ोन', 'notes': 'नोट्स',
         'send_request': 'भेजें', 'not_found': 'जो चाहिए वो नहीं मिला?',
-        'lang_name': 'हिन्दी', 'bathrooms': 'बाथरूम', 'age': 'संपत्ति की आयु'
+        'lang_name': 'हिन्दी', 'bathrooms': 'बाथरूम', 'age': 'संपत्ति की आयु',
+        'email': 'ईमेल', 'password': 'पासवर्ड', 'min_price': 'न्यूनतम मूल्य',
+        'latitude': 'अक्षांश', 'longitude': 'देशांतर',
+        'footer_desc': 'रियाद में रियल एस्टेट का भविष्य'
     },
     'tr': {
         'title': 'OBJECT', 'dir': 'ltr', 'align': 'left', 'font': 'Inter',
@@ -160,7 +178,7 @@ TRANSLATIONS = {
         'hero_desc': 'En akıllı gayrimenkul arama teknolojisiyle yeni evinizi keşfedin.',
         'browse_now': 'Şimdi Gözat', 'request_property': 'Mülk Talep Et',
         'why_object': 'Neden OBJECT?', 'why_desc': 'Eşsiz bir gayrimenkul deneyimi sunuyoruz',
-        'smart_search': 'Akıllı Arama', 'smart_search_desc': 'Bölge, tip ve fiyata göre gelişmiş filtreleme',
+
         'maps': 'Etkileşimli Haritalar', 'maps_desc': 'Haritada tam konumu görün',
         'calculator': 'Kredi Hesaplayıcı', 'calculator_desc': 'Maaşınıza göre aylık taksiti hesaplayın',
         'properties': 'Mevcut Mülkler', 'districts': "Riyad'daki Bölgeler", 'clients': 'Mutlu Müşteriler',
@@ -173,7 +191,10 @@ TRANSLATIONS = {
         'add_property': 'Mülk Ekle', 'client_requests': 'Müşteri Talepleri',
         'publish': 'Yayınla', 'name': 'Ad', 'phone': 'Telefon', 'notes': 'Notlar',
         'send_request': 'Gönder', 'not_found': 'Aradığınızı bulamadınız mı?',
-        'lang_name': 'Türkçe', 'bathrooms': 'Banyo', 'age': 'Bina Yaşı'
+        'lang_name': 'Türkçe', 'bathrooms': 'Banyo', 'age': 'Bina Yaşı',
+        'email': 'E-posta', 'password': 'Şifre', 'min_price': 'Min Fiyat',
+        'latitude': 'Enlem', 'longitude': 'Boylam',
+        'footer_desc': "Riyad'da Gayrimenkulün Geleceği"
     }
 }
 
