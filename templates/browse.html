@@ -1,95 +1,126 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-    <!-- Page Header -->
-    <div style="text-align: center; margin-bottom: 50px;" class="animate-in">
-        <h1 class="section-title">{{ t['browse'] }}</h1>
-        <p class="section-subtitle">{{ t['hero_desc'] }}</p>
-    </div>
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-    <!-- Search Filter -->
-    <div class="glass-card animate-in" style="margin-bottom: 50px; animation-delay: 0.1s;">
-        <form action="/browse" method="GET" style="display: flex; gap: 15px; flex-wrap: wrap; align-items: flex-end;">
-            <div style="flex: 2; min-width: 200px;">
-                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                    <i class="fas fa-map-marker-alt"></i> {{ t['district'] }}
-                </label>
-                <input type="text" name="district" placeholder="{{ t['district'] }}" class="inp">
+<div class="search-container animate-in">
+    <div class="container">
+        <form class="search-form" action="/browse" method="GET">
+            <div class="search-grid">
+                <div class="search-item">
+                    <label>{{ t['district'] }}</label>
+                    <input type="text" name="district" placeholder="{{ t['district'] }}..." class="search-input">
+                </div>
+                <div class="search-item">
+                    <label>{{ t['property_type'] }}</label>
+                    <select name="type" class="search-select">
+                        <option value="">{{ t['all_types'] }}</option>
+                        <option value="villa">{{ t['villa'] }}</option>
+                        <option value="apartment">{{ t['apartment'] }}</option>
+                        <option value="land">{{ t['land'] }}</option>
+                        <option value="floor">{{ t['floor'] }}</option>
+                    </select>
+                </div>
+                <div class="search-item">
+                    <label>{{ t['max_price'] }}</label>
+                    <input type="number" name="price_max" placeholder="2000000" class="search-input">
+                </div>
+                <div class="search-item" style="display: flex; align-items: flex-end;">
+                    <button type="submit" class="search-btn">{{ t['search'] }} <i class="fas fa-search"></i></button>
+                </div>
             </div>
-            <div style="flex: 1; min-width: 150px;">
-                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                    <i class="fas fa-home"></i> {{ t['property_type'] }}
-                </label>
-                <select name="type" class="inp">
-                    <option value="">{{ t['all_types'] }}</option>
-                    <option value="villa">{{ t['villa'] }}</option>
-                    <option value="apartment">{{ t['apartment'] }}</option>
-                    <option value="land">{{ t['land'] }}</option>
-                </select>
-            </div>
-            <div style="flex: 1; min-width: 150px;">
-                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">
-                    <i class="fas fa-coins"></i> {{ t['max_price'] }}
-                </label>
-                <input type="number" name="price_max" placeholder="2000000" class="inp">
-            </div>
-            <button type="submit" class="btn" style="min-width: 120px; justify-content: center;">
-                <i class="fas fa-search"></i>
-                {{ t['search'] }}
-            </button>
         </form>
     </div>
+</div>
 
-    <!-- Properties Grid -->
+<div class="container" style="margin-top: 40px;">
+    <!-- Map Container -->
+    <div id="map" style="height: 400px; width: 100%; border-radius: 20px; margin-bottom: 40px; z-index: 1;"></div>
+
+    <h2 class="section-title">{{ t['properties'] }}</h2>
+
+    {% if properties %}
     <div class="property-grid">
         {% for p in properties %}
         <div class="property-card animate-in" style="animation-delay: {{ loop.index * 0.1 }}s;">
-            <a href="/property/{{ p['id'] }}">
+            <a href="/property/{{ p['id'] }}" style="text-decoration: none; color: inherit;">
                 <div class="property-image-container">
+                    <div class="property-tag">{{ t[p['type']] if t[p['type']] else p['type'] }}</div>
                     {% if p['image_path'] %}
-                    <img src="{{ url_for('static', filename='uploads/' + p['image_path']) }}" alt="{{ p['title'] }}"
-                        class="property-image">
+                    <img src="{{ url_for('static', filename='uploads/' + p['image_path']) }}" class="property-image"
+                        loading="lazy">
                     {% else %}
                     <div class="property-image"
-                        style="background: var(--gradient-2); display: flex; align-items: center; justify-content: center;">
-                        <i class="fas fa-home" style="font-size: 48px; color: var(--primary);"></i>
+                        style="background: #222; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-home" style="font-size: 40px; color: #444;"></i>
                     </div>
                     {% endif %}
-                    <div
-                        style="position: absolute; top: 15px; {{ 'right' if t['dir'] == 'rtl' else 'left' }}: 15px; z-index: 2;">
-                        <span class="badge">{{ p['type'] }}</span>
-                    </div>
                 </div>
                 <div class="property-content">
+                    <div class="property-price">{{ "{:,.0f}".format(p['price']) }} {{ t['sar'] }}</div>
                     <h3 class="property-title">{{ p['title'] }}</h3>
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-                        <span class="property-price">{{ "{:,.0f}".format(p['price']) }} {{ t['sar'] }}</span>
-                    </div>
-                    <div class="property-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        {{ p['district'] }}
+                    <div class="property-info">
+                        <span><i class="fas fa-map-marker-alt"></i> {{ p['district'] }}</span>
+                        <span><i class="fas fa-eye"></i> {{ p['views'] }}</span>
                     </div>
                     <div class="property-features">
-                        <span class="property-feature">
-                            <i class="fas fa-bed"></i> {{ p['rooms'] }} {{ t['rooms'] }}
-                        </span>
-                        <span class="property-feature">
-                            <i class="fas fa-ruler-combined"></i> {{ p['area'] }} {{ t['area'] }}
-                        </span>
-                        <span class="property-feature">
-                            <i class="fas fa-eye"></i> {{ p['views'] }}
-                        </span>
+                        <span><i class="fas fa-bed"></i> {{ p['rooms'] }}</span>
+                        <span><i class="fas fa-bath"></i> {{ p['bathrooms'] }}</span>
+                        <span><i class="fas fa-vector-square"></i> {{ p['area'] }} {{ t['area'] }}</span>
                     </div>
                 </div>
             </a>
         </div>
-        {% else %}
-        <div class="glass-card" style="grid-column: 1 / -1; text-align: center; padding: 60px;">
-            <i class="fas fa-search" style="font-size: 48px; color: var(--text-muted); margin-bottom: 20px;"></i>
-            <h3 style="color: var(--text-secondary); margin-bottom: 10px;">{{ t['not_found'] }}</h3>
-        </div>
         {% endfor %}
     </div>
+    {% else %}
+    <div style="text-align: center; padding: 100px 0;">
+        <i class="fas fa-search" style="font-size: 60px; color: #333; margin-bottom: 20px;"></i>
+        <h3 style="color: #666;">{{ t['not_found'] }}</h3>
+    </div>
+    {% endif %}
 </div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Init Map centered on Riyadh
+        var map = L.map('map').setView([24.7136, 46.6753], 11);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 20
+        }).addTo(map);
+
+        // Add markers
+        var markers = [
+            {% for p in properties %}
+                {% if p['latitude'] and p['longitude'] %}
+    {
+        lat: { { p['latitude'] } },
+        lng: { { p['longitude'] } },
+        title: "{{ p['title'] }}",
+            price: "{{ '{:,.0f}'.format(p['price']) }} {{ t['sar'] }}",
+                url: "/property/{{ p['id'] }}"
+    },
+    {% endif %}
+    {% endfor %}
+        ];
+
+    markers.forEach(function (m) {
+        if (m.lat && m.lng) {
+            var marker = L.marker([m.lat, m.lng]).addTo(map);
+            marker.bindPopup(`
+                    <div style="text-align: {{ t['align'] }}; color: black;">
+                        <strong>${m.title}</strong><br>
+                        ${m.price}<br>
+                        <a href="${m.url}">{{ t['property_details'] }}</a>
+                    </div>
+                `);
+        }
+    });
+    });
+</script>
 {% endblock %}
