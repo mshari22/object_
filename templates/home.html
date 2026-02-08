@@ -94,4 +94,165 @@
         </div>
     </div>
 </div>
+
+<!-- Dynamic Properties Section -->
+<div class="container" style="margin-top: 80px;">
+    <div style="text-align: center; margin-bottom: 60px;">
+        <h2 class="section-title">{{ t['properties'] }}</h2>
+        <p class="section-subtitle">{{ t['browse'] }}</p>
+    </div>
+
+    <!-- Property Container -->
+    <div id="property-container"
+        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px;">
+        <!-- Loading indicator -->
+        <div class="loading-indicator" style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
+            <i class="fas fa-spinner fa-spin" style="font-size: 48px; color: var(--primary); margin-bottom: 20px;"></i>
+            <p style="color: var(--text-muted); font-size: 1.1rem;">Loading properties...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Fetch properties from API and display them dynamically
+    async function loadProperties() {
+        const container = document.getElementById('property-container');
+
+        try {
+            // Call the API endpoint
+            const response = await fetch('/api/properties');
+
+            // Check if the response is ok
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            // Clear loading indicator
+            container.innerHTML = '';
+
+            // Check if we have properties
+            if (data.success && data.properties && data.properties.length > 0) {
+                // Create a card for each property
+                data.properties.forEach(property => {
+                    const card = createPropertyCard(property);
+                    container.appendChild(card);
+                });
+            } else {
+                // No properties found
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
+                        <i class="fas fa-home" style="font-size: 64px; color: var(--text-muted); margin-bottom: 20px; opacity: 0.3;"></i>
+                        <p style="color: var(--text-muted); font-size: 1.2rem;">{{ t['no_properties'] }}</p>
+                    </div>
+                `;
+            }
+
+        } catch (error) {
+            // Handle errors (API down, network issues, etc.)
+            console.error('Error loading properties:', error);
+            container.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
+                    <div class="glass-card" style="padding: 40px; max-width: 500px; margin: 0 auto; border: 2px solid rgba(244, 63, 94, 0.3);">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 64px; color: #f43f5e; margin-bottom: 20px;"></i>
+                        <h3 style="color: var(--text-primary); margin-bottom: 15px;">Unable to Load Properties</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 25px;">
+                            The API is currently unavailable. Please try again later.
+                        </p>
+                        <button onclick="loadProperties()" class="btn" style="padding: 12px 30px;">
+                            <i class="fas fa-redo"></i> Try Again
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    // Create a property card element
+    function createPropertyCard(property) {
+        const card = document.createElement('div');
+        card.className = 'glass-card';
+        card.style.cssText = 'overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;';
+
+        // Format price with commas
+        const formattedPrice = new Intl.NumberFormat('en-US').format(property.price);
+
+        // Default image if none provided
+        const imagePath = property.image_path
+            ? `/static/uploads/${property.image_path}`
+            : 'https://via.placeholder.com/400x250/1a1a2e/00d4aa?text=Property+Image';
+
+        card.innerHTML = `
+            <div style="position: relative; overflow: hidden; border-radius: 16px 16px 0 0;">
+                <img src="${imagePath}" 
+                     alt="${property.title}" 
+                     style="width: 100%; height: 200px; object-fit: cover; transition: transform 0.3s;"
+                     onerror="this.src='https://via.placeholder.com/400x250/1a1a2e/00d4aa?text=No+Image'">
+                <div style="position: absolute; top: 15px; right: 15px;">
+                    <span class="badge" style="background: rgba(0, 212, 170, 0.9); backdrop-filter: blur(10px);">
+                        <i class="fas fa-${property.type === 'villa' ? 'home' : property.type === 'apartment' ? 'building' : 'map'}"></i>
+                        ${property.type || 'Property'}
+                    </span>
+                </div>
+            </div>
+            
+            <div style="padding: 25px;">
+                <h3 style="font-size: 1.3rem; margin-bottom: 15px; color: var(--text-primary);">
+                    ${property.title}
+                </h3>
+                
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 15px; color: var(--text-muted);">
+                    <i class="fas fa-map-marker-alt" style="color: var(--primary);"></i>
+                    <span>${property.location || property.district || 'Location not specified'}</span>
+                </div>
+                
+                <div style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+                    ${property.area ? `
+                    <span style="display: flex; align-items: center; gap: 5px; color: var(--text-secondary); font-size: 0.9rem;">
+                        <i class="fas fa-ruler-combined"></i> ${property.area} m²
+                    </span>` : ''}
+                    ${property.rooms ? `
+                    <span style="display: flex; align-items: center; gap: 5px; color: var(--text-secondary); font-size: 0.9rem;">
+                        <i class="fas fa-bed"></i> ${property.rooms} {{ t['rooms'] }}
+                    </span>` : ''}
+                    ${property.bathrooms ? `
+                    <span style="display: flex; align-items: center; gap: 5px; color: var(--text-secondary); font-size: 0.9rem;">
+                        <i class="fas fa-bath"></i> ${property.bathrooms} {{ t['bathrooms'] }}
+                    </span>` : ''}
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid var(--glass-border);">
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 5px;">{{ t['price'] }}</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                            ${formattedPrice} {{ t['sar'] }}
+                        </div>
+                    </div>
+                    <a href="/property/${property.id}" class="btn" style="padding: 10px 20px;">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        `;
+
+        // Add hover effect
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-5px)';
+            const img = card.querySelector('img');
+            if (img) img.style.transform = 'scale(1.1)';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+            const img = card.querySelector('img');
+            if (img) img.style.transform = 'scale(1)';
+        });
+
+        return card;
+    }
+
+    // Load properties when page loads
+    document.addEventListener('DOMContentLoaded', loadProperties);
+</script>
 {% endblock %}
