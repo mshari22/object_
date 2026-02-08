@@ -18,6 +18,7 @@ TRANSLATIONS = {
         'title': 'OBJECT', 'dir': 'rtl', 'align': 'right', 'font': 'Tajawal',
         'home': 'الرئيسية', 'browse': 'سوق العقارات', 'request': 'اطلب عقارك', 
         'dashboard': 'لوحة التحكم', 'login': 'دخول', 'logout': 'خروج', 'signup': 'تسجيل',
+        'profile': 'ملفي الشخصي', 'contact_us': 'اتصل بنا', 'about_us': 'من نحن',
         'hero_title': 'مستقبل العقار', 'hero_subtitle': 'في الرياض',
         'hero_desc': 'اكتشف منزلك الجديد باستخدام أذكى تقنيات البحث العقاري.',
         'browse_now': 'تصفح السوق الآن', 'request_property': 'اطلب عقارك',
@@ -26,7 +27,7 @@ TRANSLATIONS = {
         'maps': 'خرائط تفاعلية', 'maps_desc': 'شاهد موقع العقار بدقة على الخريطة',
         'calculator': 'حاسبة التمويل', 'calculator_desc': 'احسب القسط الشهري بناءً على راتبك',
         'properties': 'عقار متاح', 'districts': 'حي في الرياض', 'clients': 'عميل سعيد',
-        'search': 'بحث', 'district': 'الحي', 'property_type': 'نوع العقار', 'max_price': 'الحد الأقصى للسعر',
+        'search': 'بحث', 'district': 'الحي', 'location': 'الموقع', 'property_type': 'نوع العقار', 'max_price': 'الحد الأقصى للسعر',
         'all_types': 'جميع الأنواع', 'villa': 'فيلا', 'apartment': 'شقة', 'land': 'أرض',
         'rooms': 'غرف', 'area': 'م²', 'views': 'مشاهدات', 'sar': 'ريال',
         'contact_owner': 'تواصل مع المالك', 'whatsapp': 'واتساب', 'book_visit': 'احجز زيارة',
@@ -38,12 +39,41 @@ TRANSLATIONS = {
         'lang_name': 'العربية', 'bathrooms': 'حمام', 'age': 'عمر العقار',
         'email': 'البريد الإلكتروني', 'password': 'كلمة المرور', 'min_price': 'الحد الأدنى للسعر',
         'latitude': 'خط العرض', 'longitude': 'خط الطول',
-        'footer_desc': 'مستقبل العقار في الرياض'
+        'footer_desc': 'مستقبل العقار في الرياض',
+        
+        # Add Property Page
+        'add_property_title': 'إضافة عقار جديد',
+        'property_name': 'اسم العقار',
+        'property_name_placeholder': 'مثلاً: فيلا مودرن حطين',
+        'price': 'السعر',
+        'enter_amount': 'أدخل المبلغ',
+        'location_placeholder': 'مثلاً: الملقا، الرياض',
+        'property_image': 'صورة العقار',
+        'publish_now': 'نشر العقار الآن',
+        'cancel_return': 'إلغاء والعودة للسوق',
+        'select_location_map': 'حدد الموقع على الخريطة',
+
+        # Profile & Auth
+        'my_properties': 'عقاراتي',
+        'no_properties': 'لم تقم بإضافة عقارات بعد',
+        'edit': 'تعديل', 'delete': 'حذف', 'save_changes': 'حفظ التغييرات',
+        'welcome': 'مرحباً', 'join_date': 'تاريخ الانضمام',
+        'login_title': 'تسجيل الدخول', 'signup_title': 'إنشاء حساب جديد',
+        'have_account': 'لديك حساب؟', 'no_account': 'ليس لديك حساب؟',
+
+        # Contact & About
+        'contact_title': 'تواصل معنا',
+        'message': 'الرسالة', 'send_message': 'إرسال الرسالة',
+        'about_title': 'من نحن',
+        'about_content': 'نحن منصة عقارية رائدة تهدف إلى تسهيل عملية بيع وشراء العقارات في الرياض باستخدام أحدث التقنيات.',
+        'our_vision': 'رؤيتنا', 'vision_content': 'أن نكون الخيار الأول للبحث عن العقارات في المملكة.',
+        'our_mission': 'رسالتنا', 'mission_content': 'تقديم تجربة مستخدم استثنائية وموثوقة.',
     },
     'en': {
         'title': 'OBJECT', 'dir': 'ltr', 'align': 'left', 'font': 'Inter',
         'home': 'Home', 'browse': 'Marketplace', 'request': 'Request', 
         'dashboard': 'Dashboard', 'login': 'Login', 'logout': 'Logout', 'signup': 'Sign Up',
+        'profile': 'My Profile', 'contact_us': 'Contact Us', 'about_us': 'About Us',
         'hero_title': 'Future of Real Estate', 'hero_subtitle': 'in Riyadh',
         'hero_desc': 'Discover your new home using the smartest real estate search technology.',
         'browse_now': 'Browse Now', 'request_property': 'Request Property',
@@ -52,7 +82,7 @@ TRANSLATIONS = {
         'maps': 'Interactive Maps', 'maps_desc': 'View property location precisely on the map',
         'calculator': 'Finance Calculator', 'calculator_desc': 'Calculate monthly payment based on your salary',
         'properties': 'Available Properties', 'districts': 'Districts in Riyadh', 'clients': 'Happy Clients',
-        'search': 'Search', 'district': 'District', 'property_type': 'Property Type', 'max_price': 'Max Price',
+        'search': 'Search', 'district': 'District', 'location': 'Location', 'property_type': 'Property Type', 'max_price': 'Max Price',
         'all_types': 'All Types', 'villa': 'Villa', 'apartment': 'Apartment', 'land': 'Land',
         'rooms': 'Rooms', 'area': 'm²', 'views': 'Views', 'sar': 'SAR',
         'contact_owner': 'Contact Owner', 'whatsapp': 'WhatsApp', 'book_visit': 'Book Visit',
@@ -64,149 +94,42 @@ TRANSLATIONS = {
         'lang_name': 'English', 'bathrooms': 'Bathrooms', 'age': 'Property Age',
         'email': 'Email', 'password': 'Password', 'min_price': 'Min Price',
         'latitude': 'Latitude', 'longitude': 'Longitude',
-        'footer_desc': 'The Future of Real Estate in Riyadh'
-    },
-    'fr': {
-        'title': 'OBJECT', 'dir': 'ltr', 'align': 'left', 'font': 'Inter',
-        'home': 'Accueil', 'browse': 'Marché', 'request': 'Demander', 
-        'dashboard': 'Tableau de bord', 'login': 'Connexion', 'logout': 'Déconnexion', 'signup': 'Inscription',
-        'hero_title': "L'avenir de l'immobilier", 'hero_subtitle': 'à Riyad',
-        'hero_desc': 'Découvrez votre nouvelle maison avec la technologie de recherche immobilière la plus intelligente.',
-        'browse_now': 'Parcourir', 'request_property': 'Demander un bien',
-        'why_object': 'Pourquoi OBJECT?', 'why_desc': 'Nous offrons une expérience immobilière inégalée',
+        'footer_desc': 'The Future of Real Estate in Riyadh',
 
-        'maps': 'Cartes interactives', 'maps_desc': 'Voir la localisation précise sur la carte',
-        'calculator': 'Calculateur', 'calculator_desc': 'Calculez le paiement mensuel',
-        'properties': 'Propriétés disponibles', 'districts': 'Quartiers à Riyad', 'clients': 'Clients satisfaits',
-        'search': 'Rechercher', 'district': 'Quartier', 'property_type': 'Type de bien', 'max_price': 'Prix max',
-        'all_types': 'Tous les types', 'villa': 'Villa', 'apartment': 'Appartement', 'land': 'Terrain',
-        'rooms': 'Chambres', 'area': 'm²', 'views': 'Vues', 'sar': 'SAR',
-        'contact_owner': 'Contacter le propriétaire', 'whatsapp': 'WhatsApp', 'book_visit': 'Réserver une visite',
-        'finance_calc': 'Calculateur de financement', 'salary': 'Salaire mensuel', 'downpayment': 'Apport',
-        'calculate': 'Calculer', 'property_details': 'Détails du bien',
-        'add_property': 'Ajouter un bien', 'client_requests': 'Demandes clients',
-        'publish': 'Publier', 'name': 'Nom', 'phone': 'Téléphone', 'notes': 'Notes',
-        'send_request': 'Envoyer', 'not_found': "Vous n'avez pas trouvé ce que vous cherchez?",
-        'lang_name': 'Français', 'bathrooms': 'Salles de bain', 'age': 'Âge du bien',
-        'email': 'Email', 'password': 'Mot de passe', 'min_price': 'Prix min',
-        'latitude': 'Latitude', 'longitude': 'Longitude',
-        'footer_desc': "L'avenir de l'immobilier à Riyad"
-    },
-    'es': {
-        'title': 'OBJECT', 'dir': 'ltr', 'align': 'left', 'font': 'Inter',
-        'home': 'Inicio', 'browse': 'Mercado', 'request': 'Solicitar', 
-        'dashboard': 'Panel', 'login': 'Iniciar sesión', 'logout': 'Cerrar sesión', 'signup': 'Registrarse',
-        'hero_title': 'El futuro inmobiliario', 'hero_subtitle': 'en Riad',
-        'hero_desc': 'Descubre tu nuevo hogar con la tecnología de búsqueda inmobiliaria más inteligente.',
-        'browse_now': 'Explorar ahora', 'request_property': 'Solicitar propiedad',
-        'why_object': '¿Por qué OBJECT?', 'why_desc': 'Ofrecemos una experiencia inmobiliaria sin igual',
+        # Add Property Page
+        'add_property_title': 'Add New Property',
+        'property_name': 'Property Name',
+        'property_name_placeholder': 'e.g. Modern Villa Hiteen',
+        'price': 'Price',
+        'enter_amount': 'Enter Amount',
+        'location_placeholder': 'e.g. Al Malqa, Riyadh',
+        'property_image': 'Property Image',
+        'publish_now': 'Publish Property Now',
+        'cancel_return': 'Cancel and Return',
+        'select_location_map': 'Select Location on Map',
 
-        'maps': 'Mapas interactivos', 'maps_desc': 'Ver ubicación exacta en el mapa',
-        'calculator': 'Calculadora', 'calculator_desc': 'Calcula tu cuota mensual',
-        'properties': 'Propiedades disponibles', 'districts': 'Zonas en Riad', 'clients': 'Clientes felices',
-        'search': 'Buscar', 'district': 'Zona', 'property_type': 'Tipo', 'max_price': 'Precio máx',
-        'all_types': 'Todos los tipos', 'villa': 'Villa', 'apartment': 'Apartamento', 'land': 'Terreno',
-        'rooms': 'Habitaciones', 'area': 'm²', 'views': 'Vistas', 'sar': 'SAR',
-        'contact_owner': 'Contactar propietario', 'whatsapp': 'WhatsApp', 'book_visit': 'Reservar visita',
-        'finance_calc': 'Calculadora financiera', 'salary': 'Salario mensual', 'downpayment': 'Entrada',
-        'calculate': 'Calcular', 'property_details': 'Detalles de propiedad',
-        'add_property': 'Añadir propiedad', 'client_requests': 'Solicitudes de clientes',
-        'publish': 'Publicar', 'name': 'Nombre', 'phone': 'Teléfono', 'notes': 'Notas',
-        'send_request': 'Enviar', 'not_found': '¿No encontraste lo que buscas?',
-        'lang_name': 'Español', 'bathrooms': 'Baños', 'age': 'Antigüedad',
-        'email': 'Correo electrónico', 'password': 'Contraseña', 'min_price': 'Precio mín',
-        'latitude': 'Latitud', 'longitude': 'Longitud',
-        'footer_desc': 'El futuro inmobiliario en Riad'
-    },
-    'zh': {
-        'title': 'OBJECT', 'dir': 'ltr', 'align': 'left', 'font': 'Noto Sans SC',
-        'home': '首页', 'browse': '市场', 'request': '请求', 
-        'dashboard': '控制台', 'login': '登录', 'logout': '退出', 'signup': '注册',
-        'hero_title': '房地产的未来', 'hero_subtitle': '在利雅得',
-        'hero_desc': '使用最智能的房地产搜索技术发现您的新家。',
-        'browse_now': '立即浏览', 'request_property': '请求房产',
-        'why_object': '为什么选择 OBJECT?', 'why_desc': '我们提供无与伦比的房地产体验',
+        # Profile & Auth
+        'my_properties': 'My Properties',
+        'no_properties': 'No properties listed yet',
+        'edit': 'Edit', 'delete': 'Delete', 'save_changes': 'Save Changes',
+        'welcome': 'Welcome', 'join_date': 'Join Date',
+        'login_title': 'Login', 'signup_title': 'Sign Up',
+        'have_account': 'Have an account?', 'no_account': "Don't have an account?",
 
-        'maps': '互动地图', 'maps_desc': '在地图上精确查看房产位置',
-        'calculator': '贷款计算器', 'calculator_desc': '根据您的工资计算月供',
-        'properties': '可用房产', 'districts': '利雅得区域', 'clients': '满意客户',
-        'search': '搜索', 'district': '区域', 'property_type': '房产类型', 'max_price': '最高价格',
-        'all_types': '所有类型', 'villa': '别墅', 'apartment': '公寓', 'land': '土地',
-        'rooms': '房间', 'area': '平方米', 'views': '浏览量', 'sar': '里亚尔',
-        'contact_owner': '联系房主', 'whatsapp': 'WhatsApp', 'book_visit': '预约看房',
-        'finance_calc': '贷款计算器', 'salary': '月薪', 'downpayment': '首付',
-        'calculate': '计算', 'property_details': '房产详情',
-        'add_property': '添加房产', 'client_requests': '客户请求',
-        'publish': '发布', 'name': '姓名', 'phone': '电话', 'notes': '备注',
-        'send_request': '发送请求', 'not_found': '没有找到您想要的？',
-        'lang_name': '中文', 'bathrooms': '浴室', 'age': '房龄',
-        'email': '电子邮件', 'password': '密码', 'min_price': '最低价格',
-        'latitude': '纬度', 'longitude': '经度',
-        'footer_desc': '利雅得房地产的未来'
-    },
-    'hi': {
-        'title': 'OBJECT', 'dir': 'ltr', 'align': 'left', 'font': 'Noto Sans Devanagari',
-        'home': 'होम', 'browse': 'बाज़ार', 'request': 'अनुरोध', 
-        'dashboard': 'डैशबोर्ड', 'login': 'लॉगिन', 'logout': 'लॉगआउट', 'signup': 'साइन अप',
-        'hero_title': 'रियल एस्टेट का भविष्य', 'hero_subtitle': 'रियाद में',
-        'hero_desc': 'सबसे स्मार्ट रियल एस्टेट सर्च तकनीक से अपना नया घर खोजें।',
-        'browse_now': 'अभी ब्राउज़ करें', 'request_property': 'संपत्ति का अनुरोध करें',
-        'why_object': 'OBJECT क्यों?', 'why_desc': 'हम एक अद्वितीय रियल एस्टेट अनुभव प्रदान करते हैं',
-
-        'maps': 'इंटरैक्टिव मैप्स', 'maps_desc': 'मानचित्र पर सटीक स्थान देखें',
-        'calculator': 'EMI कैलकुलेटर', 'calculator_desc': 'अपनी सैलरी के आधार पर EMI की गणना करें',
-        'properties': 'उपलब्ध संपत्तियाँ', 'districts': 'रियाद में क्षेत्र', 'clients': 'खुश ग्राहक',
-        'search': 'खोज', 'district': 'क्षेत्र', 'property_type': 'संपत्ति का प्रकार', 'max_price': 'अधिकतम मूल्य',
-        'all_types': 'सभी प्रकार', 'villa': 'विला', 'apartment': 'अपार्टमेंट', 'land': 'भूमि',
-        'rooms': 'कमरे', 'area': 'वर्ग मीटर', 'views': 'व्यूज़', 'sar': 'रियाल',
-        'contact_owner': 'मालिक से संपर्क करें', 'whatsapp': 'WhatsApp', 'book_visit': 'विज़िट बुक करें',
-        'finance_calc': 'EMI कैलकुलेटर', 'salary': 'मासिक वेतन', 'downpayment': 'डाउन पेमेंट',
-        'calculate': 'गणना करें', 'property_details': 'संपत्ति विवरण',
-        'add_property': 'संपत्ति जोड़ें', 'client_requests': 'ग्राहक अनुरोध',
-        'publish': 'प्रकाशित करें', 'name': 'नाम', 'phone': 'फ़ोन', 'notes': 'नोट्स',
-        'send_request': 'भेजें', 'not_found': 'जो चाहिए वो नहीं मिला?',
-        'lang_name': 'हिन्दी', 'bathrooms': 'बाथरूम', 'age': 'संपत्ति की आयु',
-        'email': 'ईमेल', 'password': 'पासवर्ड', 'min_price': 'न्यूनतम मूल्य',
-        'latitude': 'अक्षांश', 'longitude': 'देशांतर',
-        'footer_desc': 'रियाद में रियल एस्टेट का भविष्य'
-    },
-    'tr': {
-        'title': 'OBJECT', 'dir': 'ltr', 'align': 'left', 'font': 'Inter',
-        'home': 'Ana Sayfa', 'browse': 'Pazar', 'request': 'Talep', 
-        'dashboard': 'Panel', 'login': 'Giriş', 'logout': 'Çıkış', 'signup': 'Kayıt Ol',
-        'hero_title': 'Gayrimenkulün Geleceği', 'hero_subtitle': "Riyad'da",
-        'hero_desc': 'En akıllı gayrimenkul arama teknolojisiyle yeni evinizi keşfedin.',
-        'browse_now': 'Şimdi Gözat', 'request_property': 'Mülk Talep Et',
-        'why_object': 'Neden OBJECT?', 'why_desc': 'Eşsiz bir gayrimenkul deneyimi sunuyoruz',
-
-        'maps': 'Etkileşimli Haritalar', 'maps_desc': 'Haritada tam konumu görün',
-        'calculator': 'Kredi Hesaplayıcı', 'calculator_desc': 'Maaşınıza göre aylık taksiti hesaplayın',
-        'properties': 'Mevcut Mülkler', 'districts': "Riyad'daki Bölgeler", 'clients': 'Mutlu Müşteriler',
-        'search': 'Ara', 'district': 'Bölge', 'property_type': 'Mülk Tipi', 'max_price': 'Maks Fiyat',
-        'all_types': 'Tüm Tipler', 'villa': 'Villa', 'apartment': 'Daire', 'land': 'Arsa',
-        'rooms': 'Oda', 'area': 'm²', 'views': 'Görüntüleme', 'sar': 'SAR',
-        'contact_owner': 'Sahibiyle İletişim', 'whatsapp': 'WhatsApp', 'book_visit': 'Ziyaret Rezerve Et',
-        'finance_calc': 'Kredi Hesaplayıcı', 'salary': 'Aylık Maaş', 'downpayment': 'Peşinat',
-        'calculate': 'Hesapla', 'property_details': 'Mülk Detayları',
-        'add_property': 'Mülk Ekle', 'client_requests': 'Müşteri Talepleri',
-        'publish': 'Yayınla', 'name': 'Ad', 'phone': 'Telefon', 'notes': 'Notlar',
-        'send_request': 'Gönder', 'not_found': 'Aradığınızı bulamadınız mı?',
-        'lang_name': 'Türkçe', 'bathrooms': 'Banyo', 'age': 'Bina Yaşı',
-        'email': 'E-posta', 'password': 'Şifre', 'min_price': 'Min Fiyat',
-        'latitude': 'Enlem', 'longitude': 'Boylam',
-        'footer_desc': "Riyad'da Gayrimenkulün Geleceği"
+        # Contact & About
+        'contact_title': 'Contact Us',
+        'message': 'Message', 'send_message': 'Send Message',
+        'about_title': 'Who Are We',
+        'about_content': 'We are a leading real estate platform aiming to facilitate the process of buying and selling real estate in Riyadh using the latest technologies.',
+        'our_vision': 'Our Vision', 'vision_content': 'To be the first choice for real estate search in the Kingdom.',
+        'our_mission': 'Our Mission', 'mission_content': 'providing an exceptional and reliable user experience.',
     }
 }
 
 # List of all languages for the selector
 LANGUAGES = [
     {'code': 'ar', 'name': 'العربية', 'flag': '🇸🇦'},
-    {'code': 'en', 'name': 'English', 'flag': '🇺🇸'},
-    {'code': 'fr', 'name': 'Français', 'flag': '🇫🇷'},
-    {'code': 'es', 'name': 'Español', 'flag': '🇪🇸'},
-    {'code': 'zh', 'name': '中文', 'flag': '🇨🇳'},
-    {'code': 'hi', 'name': 'हिन्दी', 'flag': '🇮🇳'},
-    {'code': 'tr', 'name': 'Türkçe', 'flag': '🇹🇷'}
+    {'code': 'en', 'name': 'English', 'flag': '🇺🇸'}
 ]
 
 @app.context_processor
@@ -341,17 +264,80 @@ def request_property():
         return redirect(url_for('home')) # أو صفحة نجاح
     return render_template('request.html')
 
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/set_lang/<lang>')
 def set_lang(lang):
     session['lang'] = lang
     return redirect(request.referrer or url_for('home'))
 
-@app.route('/login')
-def login(): return render_template('login.html')
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        conn = get_db()
+        user = conn.execute('SELECT * FROM users WHERE name = ?', (username,)).fetchone()
+        conn.close()
+        
+        if user and check_password_hash(user['password'], password):
+            session['user_id'] = user['id']
+            session['user_name'] = user['name']
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid username or password')
+            
+    return render_template('login.html')
 
-@app.route('/signup')
-def signup(): return render_template('signup.html')
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        password = request.form['password']
+        hashed_password = generate_password_hash(password)
+        
+        try:
+            conn = get_db()
+            conn.execute('INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
+                         (name, email, hashed_password))
+            conn.commit()
+            conn.close()
+            return redirect(url_for('login'))
+        except sqlite3.IntegrityError:
+            flash('Email already exists')
+            
+    return render_template('signup.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
+
+@app.route('/profile')
+def profile():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
+    conn = get_db()
+    # In a real app, we would fetch properties belonging to this user
+    # For now, we'll just fetch all properties to demonstrate the list, 
+    # or if we had owner_id in properties table we would use that:
+    # my_props = conn.execute('SELECT * FROM properties WHERE owner_id = ?', (session['user_id'],)).fetchall()
+    
+    # Using existing owner_id column from init_db schema
+    my_props = conn.execute('SELECT * FROM properties WHERE owner_id = ?', (session['user_id'],)).fetchall()
+    conn.close()
+    
+    return render_template('profile.html', properties=my_props)
 
 if __name__ == '__main__':
     init_db()
-    app.run(host='0.0.0.0', port=10000)
+    app.run(host='0.0.0.0', port=10000)   # test update

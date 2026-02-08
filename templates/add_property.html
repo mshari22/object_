@@ -1,59 +1,201 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="{{ lang }}" dir="{{ t['dir'] }}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إضافة عقار جديد | OBJECT</title>
+    <title>{{ t['add_property_title'] }} | {{ t['title'] }}</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        body { font-family: 'Tajawal', sans-serif; background: #0a0a0a; color: white; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .form-card { background: rgba(26, 26, 26, 0.9); backdrop-filter: blur(15px); padding: 40px; border-radius: 25px; border: 1px solid #333; width: 100%; max-width: 500px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
-        h2 { font-weight: 800; color: #27ae60; text-align: center; margin-bottom: 30px; font-size: 24px; }
-        .input-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; color: #aaa; font-size: 14px; }
-        input { width: 100%; padding: 12px; background: #111; border: 1px solid #444; border-radius: 10px; color: white; box-sizing: border-box; transition: 0.3s; }
-        input:focus { border-color: #27ae60; outline: none; background: #161616; }
-        .row { display: flex; gap: 15px; }
-        .btn-submit { width: 100%; padding: 15px; background: #27ae60; color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 20px; transition: 0.3s; font-size: 16px; }
-        .btn-submit:hover { background: #2ecc71; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3); }
-        .back-link { display: block; text-align: center; margin-top: 20px; color: #888; text-decoration: none; font-size: 14px; }
-        .back-link:hover { color: white; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: #0a0a0a;
+            color: white;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .form-card {
+            background: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 25px;
+            border: 1px solid #333;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        h2 {
+            font-weight: 800;
+            color: #27ae60;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+
+            text-align: {
+                    {
+                    t['align']
+                }
+            }
+
+            ;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            background: #111;
+            border: 1px solid #444;
+            border-radius: 10px;
+            color: white;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #27ae60;
+            outline: none;
+            background: #161616;
+        }
+
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+            font-size: 16px;
+        }
+
+        .btn-submit:hover {
+            background: #2ecc71;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        #map {
+            height: 300px;
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            z-index: 1;
+        }
     </style>
 </head>
+
 <body>
     <div class="form-card">
-        <h2><i class="fas fa-plus-circle"></i> إضافة عقار جديد</h2>
-        <form method="POST" action="/add" enctype="multipart/form-data">
+        <h2><i class="fas fa-plus-circle"></i> {{ t['add_property_title'] }}</h2>
+        <form method="POST" action="/dashboard" enctype="multipart/form-data">
             <div class="input-group">
-                <label>اسم العقار</label>
-                <input type="text" name="title" placeholder="مثلاً: فيلا مودرن حطين" required>
+                <label>{{ t['property_name'] }}</label>
+                <input type="text" name="title" placeholder="{{ t['property_name_placeholder'] }}" required>
             </div>
             <div class="input-group">
-                <label>السعر (ريال)</label>
-                <input type="number" name="price" placeholder="أدخل المبلغ" required>
+                <label>{{ t['price'] }}</label>
+                <input type="number" name="price" placeholder="{{ t['enter_amount'] }}" required>
             </div>
             <div class="input-group">
-                <label>الحي / الموقع</label>
-                <input type="text" name="location" placeholder="مثلاً: الملقا، الرياض" required>
+                <label>{{ t['location'] }}</label>
+                <input type="text" name="location" placeholder="{{ t['location_placeholder'] }}" required>
             </div>
+
+            <!-- Hidden Fields for compatibility -->
+            <input type="hidden" name="district" value="Riyadh">
+            <input type="hidden" name="description" value="New Property">
+            <input type="hidden" name="type" value="villa">
+            <input type="hidden" name="area" value="0">
+
+            <div class="input-group">
+                <label>{{ t['select_location_map'] }}</label>
+                <div id="map"></div>
+            </div>
+
             <div class="row">
                 <div class="input-group" style="flex:1;">
-                    <label>خط العرض (Lat)</label>
-                    <input type="number" step="any" name="lat" placeholder="24.71" required>
+                    <label>{{ t['latitude'] }}</label>
+                    <input type="number" step="any" name="lat" id="lat" placeholder="24.71" required>
                 </div>
                 <div class="input-group" style="flex:1;">
-                    <label>خط الطول (Lng)</label>
-                    <input type="number" step="any" name="lng" placeholder="46.67" required>
+                    <label>{{ t['longitude'] }}</label>
+                    <input type="number" step="any" name="lng" id="lng" placeholder="46.67" required>
                 </div>
             </div>
             <div class="input-group">
-                <label>صورة العقار</label>
+                <label>{{ t['property_image'] }}</label>
                 <input type="file" name="image" accept="image/*" required>
             </div>
-            <button type="submit" class="btn-submit">نشر العقار الآن</button>
+            <button type="submit" class="btn-submit">{{ t['publish_now'] }}</button>
         </form>
-        <a href="/browse" class="back-link">إلغاء والعودة للسوق</a>
+        <a href="/browse" class="back-link">{{ t['cancel_return'] }}</a>
     </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var map = L.map('map').setView([24.7136, 46.6753], 13);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
+            }).addTo(map);
+
+            var marker;
+
+            map.on('click', function (e) {
+                var lat = e.latlng.lat;
+                var lng = e.latlng.lng;
+
+                document.getElementById('lat').value = lat;
+                document.getElementById('lng').value = lng;
+
+                if (marker) {
+                    marker.setLatLng(e.latlng);
+                } else {
+                    marker = L.marker(e.latlng).addTo(map);
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>

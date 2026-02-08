@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="max-width: 800px;">
+    <div class="glass-card animate-in" style="text-align: center; padding: 50px;">
+        <h1 class="section-title">{{ t['contact_title'] }}</h1>
+        <p class="section-subtitle">{{ t['why_desc'] }}</p>
+
+        <form style="max-width: 500px; margin: 0 auto; text-align: {{ t['align'] }};">
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px;">{{
+                    t['name'] }}</label>
+                <input type="text" class="inp" placeholder="{{ t['name'] }}">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px;">{{
+                    t['email'] }}</label>
+                <input type="email" class="inp" placeholder="{{ t['email'] }}">
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 8px;">{{
+                    t['message'] }}</label>
+                <textarea class="inp" rows="5" placeholder="{{ t['message'] }}"></textarea>
+            </div>
+            <button type="button" class="btn" style="width: 100%; justify-content: center;">{{ t['send_message']
+                }}</button>
+        </form>
+
+        <div style="margin-top: 50px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <div class="glass-card" style="padding: 20px;">
+                <i class="fas fa-phone" style="font-size: 24px; color: var(--primary); margin-bottom: 15px;"></i>
+                <div>+966 59 019 2582</div>
+            </div>
+            <div class="glass-card" style="padding: 20px;">
+                <i class="fas fa-envelope" style="font-size: 24px; color: var(--secondary); margin-bottom: 15px;"></i>
+                <div>info@object.sa</div>
+            </div>
+            <div class="glass-card" style="padding: 20px;">
+                <i class="fas fa-map-marker-alt"
+                    style="font-size: 24px; color: var(--accent); margin-bottom: 15px;"></i>
+                <div>Riyadh, Saudi Arabia</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

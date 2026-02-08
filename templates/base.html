@@ -940,6 +940,15 @@
                 <a href="/request_property"><span>{{ t['request'] }}</span></a>
                 <a href="/dashboard"><span>{{ t['dashboard'] }}</span></a>
 
+                <a href="/about"><span>{{ t['about_us'] }}</span></a>
+                <a href="/contact"><span>{{ t['contact_us'] }}</span></a>
+
+                {% if session.get('user_id') %}
+                <a href="/profile"><span><i class="fas fa-user-circle"></i> {{ t['profile'] }}</span></a>
+                {% else %}
+                <a href="/login"><span>{{ t['login'] }}</span></a>
+                {% endif %}
+
                 <!-- Language Dropdown -->
                 <div class="lang-dropdown">
                     <div class="lang-current">
