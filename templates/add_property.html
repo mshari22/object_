@@ -28,7 +28,7 @@
             border-radius: 25px;
             border: 1px solid #333;
             width: 100%;
-            max-width: 500px;
+            max-width: 600px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         }
 
@@ -59,7 +59,8 @@
             font-size: 14px;
         }
 
-        input {
+        input,
+        select {
             width: 100%;
             padding: 12px;
             background: #111;
@@ -70,7 +71,8 @@
             transition: 0.3s;
         }
 
-        input:focus {
+        input:focus,
+        select:focus {
             border-color: #27ae60;
             outline: none;
             background: #161616;
@@ -121,6 +123,33 @@
             margin-bottom: 10px;
             z-index: 1;
         }
+
+        .btn-estimate {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #00d4aa, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .btn-estimate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 170, 0.4);
+        }
+
+        .btn-estimate:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        small {
+            font-size: 12px;
+        }
     </style>
 </head>
 
@@ -132,20 +161,54 @@
                 <label>{{ t['property_name'] }}</label>
                 <input type="text" name="title" placeholder="{{ t['property_name_placeholder'] }}" required>
             </div>
+
             <div class="input-group">
-                <label>{{ t['price'] }}</label>
-                <input type="number" name="price" placeholder="{{ t['enter_amount'] }}" required>
-            </div>
-            <div class="input-group">
-                <label>{{ t['location'] }}</label>
-                <input type="text" name="location" placeholder="{{ t['location_placeholder'] }}" required>
+                <label>{{ t['district'] }}</label>
+                <input type="text" name="district" id="district" placeholder="e.g. Al Malqa" required>
             </div>
 
-            <!-- Hidden Fields for compatibility -->
-            <input type="hidden" name="district" value="Riyadh">
+            <div class="input-group">
+                <label>{{ t['location'] }}</label>
+                <input type="text" name="location" id="location" placeholder="{{ t['location_placeholder'] }}" required>
+            </div>
+
+            <div class="row">
+                <div class="input-group" style="flex:1;">
+                    <label>{{ t['area'] }}</label>
+                    <input type="number" name="area" id="area" placeholder="300" required>
+                </div>
+                <div class="input-group" style="flex:1;">
+                    <label>{{ t['rooms'] }}</label>
+                    <input type="number" name="rooms" id="rooms" placeholder="4" value="0">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-group" style="flex:1;">
+                    <label>{{ t['bathrooms'] }}</label>
+                    <input type="number" name="bathrooms" id="bathrooms" placeholder="3" value="0">
+                </div>
+                <div class="input-group" style="flex:1;">
+                    <label>{{ t['age'] }}</label>
+                    <input type="number" name="age" id="age" placeholder="5" value="0">
+                </div>
+            </div>
+
+            <!-- Price with Estimate Button -->
+            <div class="input-group">
+                <label>{{ t['price'] }}</label>
+                <div style="display: flex; gap: 10px; align-items: stretch;">
+                    <input type="number" name="price" id="price" placeholder="{{ t['enter_amount'] }}" required
+                        style="flex: 1;">
+                    <button type="button" id="estimateBtn" class="btn-estimate">{{ t['get_estimate'] }}</button>
+                </div>
+                <small id="priceHint" style="color: #27ae60; margin-top: 5px; display: none;"></small>
+            </div>
+
+            <!-- Hidden Fields -->
             <input type="hidden" name="description" value="New Property">
             <input type="hidden" name="type" value="villa">
-            <input type="hidden" name="area" value="0">
+            <input type="hidden" name="furnished" id="furnished" value="no">
 
             <div class="input-group">
                 <label>{{ t['select_location_map'] }}</label>
@@ -162,6 +225,7 @@
                     <input type="number" step="any" name="lng" id="lng" placeholder="46.67" required>
                 </div>
             </div>
+
             <div class="input-group">
                 <label>{{ t['property_image'] }}</label>
                 <input type="file" name="image" accept="image/*" required>
@@ -174,24 +238,70 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Map functionality
             var map = L.map('map').setView([24.7136, 46.6753], 13);
             L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
                 attribution: '&copy; OpenStreetMap contributors &copy; CARTO'
             }).addTo(map);
 
             var marker;
-
             map.on('click', function (e) {
                 var lat = e.latlng.lat;
                 var lng = e.latlng.lng;
-
                 document.getElementById('lat').value = lat;
                 document.getElementById('lng').value = lng;
-
                 if (marker) {
                     marker.setLatLng(e.latlng);
                 } else {
                     marker = L.marker(e.latlng).addTo(map);
+                }
+            });
+
+            // Smart Pricing Estimate
+            document.getElementById('estimateBtn').addEventListener('click', async function () {
+                const btn = this;
+                const priceInput = document.getElementById('price');
+                const priceHint = document.getElementById('priceHint');
+
+                const data = {
+                    district: document.getElementById('district').value || 'Riyadh',
+                    area: parseFloat(document.getElementById('area').value) || 0,
+                    rooms: parseInt(document.getElementById('rooms').value) || 0,
+                    bathrooms: parseInt(document.getElementById('bathrooms').value) || 0,
+                    age: parseInt(document.getElementById('age').value) || 0,
+                    furnished: document.getElementById('furnished').value || 'no'
+                };
+
+                if (!data.area || data.area <= 0) {
+                    alert('{{ t["area"] }} is required for estimation!');
+                    return;
+                }
+
+                btn.disabled = true;
+                btn.textContent = '{{ t["estimating"] }}';
+
+                try {
+                    const response = await fetch('/api/estimate_price', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        priceInput.value = result.estimated_price;
+                        priceHint.textContent = `{{ t["price_range"] }}: ${result.price_range_low.toLocaleString()} - ${result.price_range_high.toLocaleString()} {{ t["sar"] }}`;
+                        priceHint.style.display = 'block';
+                    } else {
+                        alert('Error: ' + result.error);
+                    }
+                } catch (error) {
+                    alert('Failed to estimate price. Please try again.');
+                    console.error(error);
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = '{{ t["get_estimate"] }}';
                 }
             });
         });

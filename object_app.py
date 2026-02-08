@@ -67,6 +67,45 @@ class Request(db.Model):
     notes = db.Column(db.Text)
     date = db.Column(db.DateTime, default=datetime.utcnow)
 
+# --- Pricing Model ---
+
+# District base prices per square meter (SAR)
+DISTRICT_PRICES = {
+    'malqa': 5500, 'ملقا': 5500, 'al malqa': 5500,
+    'hiteen': 6500, 'حطين': 6500, 'al hiteen': 6500,
+    'narjis': 4200, 'نرجس': 4200, 'al narjis': 4200,
+    'olaya': 4800, 'عليا': 4800, 'al olaya': 4800,
+    'yasmin': 4000, 'ياسمين': 4000, 'al yasmin': 4000,
+    'riyadh': 3500, 'رياض': 3500,
+}
+
+def estimate_property_price(district, area, rooms=0, bathrooms=0, age=0, furnished='no'):
+    """
+    Smart pricing model using heuristic algorithm.
+    Returns: (estimated_price, low_range, high_range)
+    """
+    # Normalize district name
+    district_key = district.lower().strip() if district else 'riyadh'
+    base_price_per_sqm = DISTRICT_PRICES.get(district_key, 3500)
+    
+    # Base calculation
+    base_value = area * base_price_per_sqm
+    
+    # Apply multipliers
+    multiplier = 1.0
+    multiplier += (rooms * 0.02)  # +2% per room
+    multiplier += (bathrooms * 0.015)  # +1.5% per bathroom
+    multiplier += (0.15 if furnished == 'yes' else 0)  # +15% if furnished
+    multiplier -= (age * 0.005)  # -0.5% per year (depreciation)
+    
+    estimated_price = base_value * multiplier
+    
+    # Calculate range (±10%)
+    low_range = estimated_price * 0.9
+    high_range = estimated_price * 1.1
+    
+    return round(estimated_price), round(low_range), round(high_range)
+
 # --- Translations ---
 TRANSLATIONS = {
     'ar': {
@@ -116,6 +155,12 @@ TRANSLATIONS = {
         'about_content': 'نحن منصة عقارية رائدة تهدف إلى تسهيل عملية بيع وشراء العقارات في الرياض باستخدام أحدث التقنيات.',
         'our_vision': 'رؤيتنا', 'vision_content': 'أن نكون الخيار الأول للبحث عن العقارات في المملكة.',
         'our_mission': 'رسالتنا', 'mission_content': 'تقديم تجربة مستخدم استثنائية وموثوقة.',
+        
+        # Pricing Model
+        'get_estimate': '✨ احسب السعر الذكي',
+        'estimating': 'جاري الحساب...',
+        'estimated_price': 'السعر المقدر',
+        'price_range': 'النطاق السعري',
     },
     'en': {
         'title': 'OBJECT', 'dir': 'ltr', 'align': 'left', 'font': 'Inter',
@@ -164,6 +209,12 @@ TRANSLATIONS = {
         'about_content': 'We are a leading real estate platform aiming to facilitate the process of buying and selling real estate in Riyadh using the latest technologies.',
         'our_vision': 'Our Vision', 'vision_content': 'To be the first choice for real estate search in the Kingdom.',
         'our_mission': 'Our Mission', 'mission_content': 'providing an exceptional and reliable user experience.',
+        
+        # Pricing Model
+        'get_estimate': '✨ Get Smart Estimate',
+        'estimating': 'Estimating...',
+        'estimated_price': 'Estimated Price',
+        'price_range': 'Price Range',
     }
 }
 
@@ -256,6 +307,32 @@ def request_property():
         db.session.commit()
         return redirect(url_for('home'))
     return render_template('request.html')
+
+@app.route('/api/estimate_price', methods=['POST'])
+def api_estimate_price():
+    """API endpoint for property price estimation"""
+    data = request.get_json()
+    
+    try:
+        district = data.get('district', 'Riyadh')
+        area = float(data.get('area', 0))
+        rooms = int(data.get('rooms', 0))
+        bathrooms = int(data.get('bathrooms', 0))
+        age = int(data.get('age', 0))
+        furnished = data.get('furnished', 'no')
+        
+        estimated, low, high = estimate_property_price(
+            district, area, rooms, bathrooms, age, furnished
+        )
+        
+        return {
+            'success': True,
+            'estimated_price': estimated,
+            'price_range_low': low,
+            'price_range_high': high
+        }
+    except Exception as e:
+        return {'success': False, 'error': str(e)}, 400
 
 @app.route('/contact')
 def contact():
